@@ -1,0 +1,25 @@
+﻿  TestMC.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:  '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:             _Ty=int
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :  see reference to function template instantiation '_Ty std::accumulate<_InIt,_Ty,std::plus<void>>(const _InIt,const _InIt,_Ty,_Fn)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :             _Ty=int,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :             _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :             _Fn=std::plus<void>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :         ]
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :  see reference to function template instantiation '_Ty std::accumulate<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,int>(const _InIt,const _InIt,_Ty)' being compiled
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :         with
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :         [
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :             _Ty=int,
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :             _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :         ]
+  Generating code
+  6 of 390 functions ( 1.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  WbsProject.vcxproj -> C:\Users\Jón Sveinbjörn\source\repos\WbsProject\Release\WbsProject.exe
