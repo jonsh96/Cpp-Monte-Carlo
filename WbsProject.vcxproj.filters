@@ -18,10 +18,19 @@
     <ClCompile Include="Stopwatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestMCOMP.cpp">
+    <ClCompile Include="TestMC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestMC.cpp">
+    <ClCompile Include="MonteCarlo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackScholes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,13 +41,16 @@
     <ClInclude Include="OptionData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OptionCommand.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MonteCarlo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDE.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackScholes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionCommand.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

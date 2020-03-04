@@ -118,6 +118,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\local\boost_1_72_0_b1_rc2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,11 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlackScholes.cpp" />
+    <ClCompile Include="MonteCarlo.cpp" />
+    <ClCompile Include="OptionData.cpp" />
+    <ClCompile Include="SDE.cpp" />
     <ClCompile Include="TestMC.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
-    <ClCompile Include="TestMCOMP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlackScholes.hpp" />
     <ClInclude Include="MonteCarlo.hpp" />
     <ClInclude Include="OptionCommand.hpp" />
     <ClInclude Include="OptionData.hpp" />

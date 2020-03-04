@@ -5,29 +5,21 @@
 //
 // (C) Datasim Education BV 2017
 //
+// https://www.macroption.com/black-scholes-formula/
 
-#ifndef OptionCommand_HPP
-#define OptionCommand_HPP
+// TODO: COMMENT
+
+#ifndef OPTION_COMMAND_HPP
+#define OPTION_COMMAND_HPP
 
 #include <memory>
 #include <cmath>
 #include <iostream>
-
-// Normal variates etc.
-double n(double x)
-{
-	double A = 1.0 / std::sqrt(2.0 * 3.1415);
-	return A * std::exp(-x * x * 0.5);
-}
+#include <cmath>
+#include <algorithm>
 
 // C++11 supports the error function
 auto cndN = [](double x) { return 0.5 * (1.0 - std::erf(-x / std::sqrt(2.0))); };
-
-double N(double x)
-{ 
-	// The approximation to the cumulative normal distribution
-	return cndN(x);
-}
 
 class OptionCommand
 {
@@ -38,25 +30,39 @@ protected:
 
 public:
 	OptionCommand() = default;
-
+	virtual ~OptionCommand() {};
 	// Copy constructor
 	// explicit constexpr OptionCommand(const OptionCommand &OC) : K(OC.K), T(OC.T), r(OC.r), b(OC.b), sig(OC.sig) {}
 
 	// Constructor
 	explicit OptionCommand(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: K(strike), T(expiration), r(riskFree), b(costOfCarry), sig(volatility) {}
+
 	// Want to forbid copy constructor and assignment operator
 	OptionCommand(const OptionCommand& c) = default;
 	OptionCommand& operator = (const OptionCommand& c) = default;
 
 	// The abstract interface
-	virtual void execute(double S) = 0;
+	virtual double execute(double S) = 0;
 
 	// Implement as a function object; simple example of Template Method Pattern
-	virtual void operator () (double S)
+	virtual double operator () (double S)
 	{
 		// Call derived class' execute()
-		execute(S);
+		return execute(S);
+	}
+
+	// Normal variates etc.
+	double n(double x)
+	{
+		double A = 1.0 / std::sqrt(2.0 * 3.1415);
+		return A * std::exp(-x * x * 0.5);
+	}
+
+	double N(double x)
+	{
+		// The approximation to the cumulative normal distribution
+		return cndN(x);
 	}
 };
 
@@ -66,13 +72,15 @@ public:
 	explicit CallPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~CallPrice() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 		double d2 = d1 - tmp;
 
-		std::cout << "Call Price: " << (S * std::exp((b - r) * T) * N(d1)) - (K * std::exp(-r * T) * N(d2)) << '\n';
+		return std::exp(-r * T) * ((S * std::exp((r - b) * T) * N(d1)) - K * N(d2));
 	}
 };
 
@@ -82,13 +90,15 @@ public:
 	explicit PutPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~PutPrice() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 		double d2 = d1 - tmp;
 
-		std::cout << "Put Price: " << (K * std::exp(-r * T) * N(-d2)) - (S * std::exp((b - r) * T) * N(-d1)) << '\n';
+		return std::exp(-r * T) * (K * N(-d2) - (S * std::exp((r - b) * T) * N(-d1)));
 	}
 };
 
@@ -97,13 +107,15 @@ class CallDelta final : public OptionCommand
 public:
 	explicit CallDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+	
+	virtual ~CallDelta() {};
 
-	virtual void execute(double S)  override
+	virtual double execute(double S)  override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 
-		std::cout << "Call delta: " << std::exp((b - r) * T) * N(d1) << '\n';
+		return std::exp(-b * T) * N(d1);
 	}
 };
 
@@ -113,12 +125,14 @@ public:
 	explicit PutDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~PutDelta() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 
-		std::cout << "Put delta: " << std::exp((b - r) * T) * (N(d1) - 1.0) << '\n';
+		return std::exp(-b * T) * (N(d1) - 1.0);
 	}
 };
 
@@ -128,15 +142,16 @@ public:
 	explicit CallGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~CallGamma() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 
-		std::cout << "Call gamma: " << n(d1) * std::exp((b - r) * T) / (S * tmp) << '\n';
+		return n(d1) * std::exp(-b * T) / (S * tmp);
 	}
 };
-
 
 class PutGamma final : public OptionCommand
 {
@@ -144,12 +159,14 @@ public:
 	explicit PutGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~PutGamma() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 
-		std::cout << "Put gamma: " << n(d1) * std::exp((b - r) * T) / (S * tmp) << '\n';
+		return n(d1) * std::exp(-b * T) / (S * tmp);
 	}
 };
 
@@ -159,15 +176,16 @@ public:
 	explicit CallVega(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~CallVega() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 
-		std::cout << "Call vega: " << S * std::exp((b - r) * T) * n(d1) * sqrt(T) << '\n';
+		return S * std::exp((b - r) * T) * n(d1) * sqrt(T);
 	}
 };
-
 
 class PutVega final : public OptionCommand
 {
@@ -175,12 +193,14 @@ public:
 	explicit PutVega(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~PutVega() {};
+	
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 
-		std::cout << "Put vega: " << S * std::exp((b - r) * T) * n(d1) * sqrt(T) << '\n';
+		return S * std::exp((b - r) * T) * n(d1) * sqrt(T);
 	}
 };
 
@@ -190,13 +210,15 @@ public:
 	explicit CallRho(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~CallRho() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 		double d2 = d1 - tmp;
 
-		std::cout << "Call rho: " << T * K * std::exp(-r * T) * N(d2) << '\n';
+		return T * K * std::exp(-r * T) * N(d2);
 	}
 };
 
@@ -206,13 +228,15 @@ public:
 	explicit PutRho(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~PutRho() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 		double d2 = d1 - tmp;
 
-		std::cout << "Put rho: " << -T * K * std::exp(-r * T) * N(-d2) << '\n';
+		return -T * K * std::exp(-r * T) * N(-d2);
 	}
 };
 
@@ -222,17 +246,19 @@ public:
 	explicit CallTheta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~CallTheta() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
-		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+		double d1 = (log(S / K) + (r - b + (sig * sig) * 0.5) * T) / tmp;
 		double d2 = d1 - tmp;
 
 		double t1 = (S * std::exp((b - r) * T) * n(d1) * sig * 0.5) / std::sqrt(T);
 		double t2 = (b - r) * (S * std::exp((b - r) * T) * N(d1));
 		double t3 = r * K * std::exp(-r * T) * N(d2);
 
-		std::cout << "Call theta: " << -(t1 + t2 + t3) << '\n';
+		return -(t1 + t2 + t3);
 	}
 };
 
@@ -242,7 +268,9 @@ public:
 	explicit PutTheta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~PutTheta() {};
+
+	virtual double execute(double S) override
 	{
 		double tmp = sig * std::sqrt(T);
 		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
@@ -252,10 +280,9 @@ public:
 		double t2 = (b - r) * (S * std::exp((b - r) * T) * N(-d1));
 		double t3 = r * K * std::exp(-r * T) * N(-d2);
 
-		std::cout << "Put theta: " << t1 + t2 + t3 << '\n';
+		return t1 + t2 + t3;
 	}
 };
-
 
 class CallElasticity final : public OptionCommand
 {
@@ -263,20 +290,22 @@ public:
 	explicit CallElasticity(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual void execute(double S) override
+	virtual ~CallElasticity() {};
+
+	virtual double execute(double S) override
 	{
 		compute(S, 0.25);
 	}
 
-	virtual void compute(double S, double percentageMovement)
+	virtual double compute(double S, double percentageMovement)
 	{
 		double tmp = sig * std::sqrt(T);
 		double d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
 
 		double cd = std::exp((b - r) * T) * N(d1);
 
-		std::cout << "Call Elasticiy: " << (cd * S) / percentageMovement << '\n';
+		return (cd * S) / percentageMovement;
 	}
 };
 
-#endif
+#endif !OPTION_COMMAND_HPP

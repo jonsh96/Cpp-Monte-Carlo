@@ -1,5 +1,5 @@
-﻿  TestMC.cpp
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75,53): warning C4244:  '=': conversion from 'unsigned __int64' to 'double', possible loss of data
+﻿  MonteCarlo.cpp
+  OptionData.cpp
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:  '=': conversion from 'double' to '_Ty', possible loss of data
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:         with
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(24,26): warning C4244:         [
@@ -12,13 +12,14 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :             _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :             _Fn=std::plus<void>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\numeric(33): message :         ]
+  SDE.cpp
+  TestMC.cpp
   Stopwatch.cpp
-  TestMCOMP.cpp
   Generating Code...
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :  see reference to function template instantiation '_Ty std::accumulate<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,int>(const _InIt,const _InIt,_Ty)' being compiled
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :         with
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :         [
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :             _Ty=int,
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :             _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.hpp(75): message :         ]
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.cpp(9): message :  see reference to function template instantiation '_Ty std::accumulate<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,int>(const _InIt,const _InIt,_Ty)' being compiled
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.cpp(9): message :         with
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.cpp(9): message :         [
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.cpp(9): message :             _Ty=int,
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.cpp(9): message :             _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>
+C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.cpp(9): message :         ]
   WbsProject.vcxproj -> C:\Users\Jón Sveinbjörn\source\repos\WbsProject\x64\Debug\WbsProject.exe

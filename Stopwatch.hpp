@@ -32,6 +32,4 @@ public:
 	TickType GetTime();
 };
 
-
-
 #endif

@@ -1,9 +1,11 @@
+#ifndef SDE_HPP
+#define SDE_HPP
+
 #include "OptionData.hpp" // in local directory
 #include <cmath>
 #include <iostream>
 
-#ifndef SDE_HPP
-#define SDE_HPP
+// TODO: COMMENT + POSSIBLY ADD SET/GET FUNCTIONS
 
 class SDE
 { // Defines drift + diffusion + data
@@ -12,15 +14,8 @@ private:
 public:
 	SDE(const OptionData& optionData) : data(new OptionData(optionData)) {}
 
-	double drift(double t, double S)
-	{ // Drift term	
-		return (data->r - data->D) * S; // r - D
-	}
-
-	double diffusion(double t, double S)
-	{ // Diffusion term
-		return data->sig * S;
-	}
+	double drift(double t, double S);
+	double diffusion(double t, double S);
 };
 
 #endif // !SDE_HPP
