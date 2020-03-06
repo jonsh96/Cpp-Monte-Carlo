@@ -80,20 +80,20 @@ int main()
 		MC.generateData();
 		MC.storeData();
 		MC.printSummary();
-		std::cout << "Plot prices? [Y/N]: ";
+		std::cout << "Plot prices? [Y/N]:\t";
 		std::cin >> ans;
 		if (ans == 'Y' || ans == 'y')
 		{
 			MC.storeData();
 			MC.plotPrices();
 		}
-		std::cout << "Plot deltas? [Y/N]: ";
+		std::cout << "Plot deltas? [Y/N]:\t";
 		std::cin >> ans;
 		if (ans == 'Y' || ans == 'y')
 		{
 			MC.plotDeltas();
 		}
-		std::cout << "Plot gammas? [Y/N]: ";
+		std::cout << "Plot gammas? [Y/N]:\t";
 		std::cin >> ans;
 		if (ans == 'Y' || ans == 'y')
 		{

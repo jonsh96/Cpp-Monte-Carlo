@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 S, G = np.loadtxt('option_delta.txt', delimiter=',', unpack=True)
 S2, G2 = np.loadtxt('MC_deltas.txt', delimiter=',', unpack=True)
 

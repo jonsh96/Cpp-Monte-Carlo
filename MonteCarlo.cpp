@@ -1,8 +1,14 @@
 #include "MonteCarlo.hpp" 
 
+// TODO: COPY CONSTRUCTOR
+
 // TODO: COMMENT
 MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS, long NT, long M)
 {
+	// Set the number of threads to use
+	omp_set_num_threads(8);	// Number of threads = 8
+
+	// Copy values over
 	this->myOption = OD;
 	this->S0 = OD.S0;
 	this->Smin = Smin;
@@ -10,19 +16,28 @@ MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS
 	this->dS = dS;
 	this->NT = NT;
 	this->M = M;
+
+	// Initialise measurements
 	this->SD = 0.0;
 	this->SE = 0.0;
 	this->timeElapsed = 0.0;
 	this->option_price = 0.0;
+
+	// Create instance of the Black Scholes data structure
 	BlackScholes BS(OD.K, OD.r, OD.T, OD.D, OD.sigma, OD.type, Smin, Smax, dS);
 	this->bsOption = BS;
+
+	// Start the Monte Carlo Process
 	generateData();
 }
 
 void MonteCarlo::generateData()
 {
+	// Generate the paths using path recycling (same Wiener process matrix for each price)
 	generateWienerProcesses();
 	generatePrices(this->Smin, this->Smax, this->dS);
+	
+	// Calculate the delta and gamma with numerical methods for differentiation
 	generateDeltas();
 	generateGammas();
 }
@@ -30,32 +45,34 @@ void MonteCarlo::generateWienerProcesses()
 {
 	// Normal (0,1) rng
 	// TODO: allow for more random engines
-	std::default_random_engine dre;
-	std::normal_distribution<double> nor(0.0, 1.0);
+	// std::default_random_engine dre;
+	// std::normal_distribution<double> nor(0.0, 1.0);
+	std::random_device rd;
+	std::default_random_engine generator(rd()); // rd() provides a random seed
+	std::normal_distribution<double> distribution(0, 1);
+	//uniform_real_distribution<float> distribution(0, 1);
+	
+	// Initialise matrix of Wiener paths
 	std::vector<std::vector<double>> temp_paths;
 
 	for (long i = 0; i <= this->M; ++i)
 	{
+		// Initialise temporary path
 		std::vector<double> temp_path;
 		for (long j = 0; j <= NT; ++j)
 		{
-			temp_path.push_back(nor(dre));
+			// Add a random normally distributed Wiener process to the Wiener path
+			temp_path.push_back(distribution(generator));
 		}
 		temp_paths.push_back(temp_path);
 	}
+	// Set the member matrix dW as the paths generated
 	this->dW = temp_paths;
 }
 
 void MonteCarlo::generatePaths(double S)
 {
-	// Initialise stopwatch
-	// StopWatch<> sw;
-	// sw.Start();
-
-	// Normal (0,1) rng
-	// TODO: allow for more random engines
-
-	// Create a random number
+	// Define and initialise variables 
 	double dt = this->myOption.T / static_cast<double>(this->NT);
 	double sqrdt = std::sqrt(dt);
 	double VOld, VNew, x;
@@ -63,17 +80,16 @@ void MonteCarlo::generatePaths(double S)
 	double squaredPayoff = 0.0;
 	double sumPriceT = 0.0;
 
-	// Set the number of threads to use
-	omp_set_num_threads(8);	// Number of threads = 8
-
 	// Create an instance of the SDE
 	SDE sde = SDE(this->myOption);
 
-	// Paths
+	// Create a matrix to store the paths in
 	std::vector<std::vector<double>> temp_paths;
 
+	// Store M as a double to avoid problem when dividing later
 	double M = static_cast<double>(this->M);
 
+	// Loop through the number of simulations 
 	for (long i = 1; i <= this->M; ++i)
 	{ 
 		// Calculate a path at each iteration
@@ -81,26 +97,26 @@ void MonteCarlo::generatePaths(double S)
 
 		VOld = S;
 		x = 0.0;
+	
+		// Loop through the number of time steps
 		for (long index = 0; index <= NT; ++index)
 		{
+			// TODO: COMMENT
 			// The FDM (in this case explicit Euler), equation (9.2) from the text
 			VNew = VOld + (dt * sde.drift(x, VOld)) + (sqrdt * sde.diffusion(x, VOld) * dW[i][index]);
-
 			temp_path.push_back(VOld);
-
 			VOld = VNew;
 			x += dt;
 		}
+		// Store path in matrix
 		temp_path.push_back(VOld);
 		temp_paths.push_back(temp_path);
 	}
 	// Store paths
 	this->paths = temp_paths;
 
+	// Calculate the price 
 	calculatePrice();
-	// Measure time
-	// sw.Stop();
-	// this->timeElapsed = sw.GetTime();
 }
 
 void MonteCarlo::generatePrices(double Smin, double Smax, double dS)
@@ -109,34 +125,45 @@ void MonteCarlo::generatePrices(double Smin, double Smax, double dS)
 	StopWatch<> sw;
 	sw.Start();
 
+	// Loop through range of prices using dS as the jump
 	for (double s = Smin; s < Smax; s += dS)
 	{
+		// Generate paths and add prices + standard deviation + standard error to a map
 		generatePaths(s);
 		prices.insert(std::pair<double, double>(s, this->option_price));
 		stddev.insert(std::pair<double, double>(s, this->SD));
 		stderror.insert(std::pair<double, double>(s, this->SE));
 	}
+
+	// Return time elapsed
 	sw.Stop();
 	this->timeElapsed = sw.GetTime();
 }
 
 void MonteCarlo::generateDeltas()
 {
-	double prev, curr;
+	double prev = 0.0;
+	double curr = 0.0;
+
+	// If there are no prices available, delta cannot be calculated, therefore generatePrices is called
 	if (this->prices.size() == 0)
 	{
 		generatePrices(Smin, Smax, dS);
 	}
+
+	// Loop through price map 
 	for(auto it = this->prices.begin(); it != this->prices.end(); it++)
 	{
+		// Special case for first value as delta cannot be calculated theres
 		if (it == this->prices.begin())
 		{
 			prev = it->second;
 		}
 		else
 		{
+			// TODO: COMMENT + TRY DIFFERENT METHOD
 			curr = it->second;
-			this->deltas.insert(std::pair<double, double>(it->first, (curr-prev)/this->dS));
+			this->deltas.insert(std::pair<double, double>(it->first, (curr - prev)/this->dS));
 			prev = curr;
 		}
 	}
@@ -144,7 +171,10 @@ void MonteCarlo::generateDeltas()
 
 void MonteCarlo::generateGammas()
 {
-	double prev, curr;
+	double prev = 0.0;
+	double curr = 0.0;
+
+	// If there are no gammas
 	if (this->deltas.size() == 0)
 	{
 		generateDeltas();

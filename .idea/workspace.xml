@@ -2,40 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d7b6596-291d-4937-9f64-275dfaa7c4a5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot_delta.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot_gamma.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot_paths.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot_price.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot_rho.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot_theta.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot_vega.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TestMCOMP.cpp" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/Stopwatch.obj" afterPath="$PROJECT_DIR$/x64/Debug/Stopwatch.obj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/TestMC.obj" afterPath="$PROJECT_DIR$/x64/Debug/TestMC.obj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/TestMCOMP.obj" afterPath="$PROJECT_DIR$/x64/Debug/TestMCOMP.obj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.exe" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.ilk" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.ilk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.pdb" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/vc142.idb" afterPath="$PROJECT_DIR$/x64/Debug/vc142.idb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/vc142.pdb" afterPath="$PROJECT_DIR$/x64/Debug/vc142.pdb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MonteCarlo.hpp" afterPath="$PROJECT_DIR$/MonteCarlo.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OptionCommand.hpp" afterPath="$PROJECT_DIR$/OptionCommand.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OptionData.hpp" afterPath="$PROJECT_DIR$/OptionData.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SDE.hpp" afterPath="$PROJECT_DIR$/SDE.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Stopwatch.hpp" afterPath="$PROJECT_DIR$/Stopwatch.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MC_deltas.txt" afterPath="$PROJECT_DIR$/MC_deltas.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MC_gammas.txt" afterPath="$PROJECT_DIR$/MC_gammas.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MC_prices.txt" afterPath="$PROJECT_DIR$/MC_prices.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MonteCarlo.cpp" afterPath="$PROJECT_DIR$/MonteCarlo.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestMC.cpp" afterPath="$PROJECT_DIR$/TestMC.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WbsProject.vcxproj" afterPath="$PROJECT_DIR$/WbsProject.vcxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WbsProject.vcxproj.filters" afterPath="$PROJECT_DIR$/WbsProject.vcxproj.filters" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paths.txt" afterPath="$PROJECT_DIR$/paths.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/option_delta.txt" afterPath="$PROJECT_DIR$/option_delta.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/option_gamma.txt" afterPath="$PROJECT_DIR$/option_gamma.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/option_price.txt" afterPath="$PROJECT_DIR$/option_price.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/option_rho.txt" afterPath="$PROJECT_DIR$/option_rho.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/option_theta.txt" afterPath="$PROJECT_DIR$/option_theta.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/option_vega.txt" afterPath="$PROJECT_DIR$/option_vega.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plot_delta.py" afterPath="$PROJECT_DIR$/plot_delta.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plot_gamma.py" afterPath="$PROJECT_DIR$/plot_gamma.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plot_test.py" afterPath="$PROJECT_DIR$/plot_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.log" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.command.1.tlog" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.command.1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.read.1.tlog" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.read.1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.write.1.tlog" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.write.1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.command.1.tlog" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.command.1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.read.1.tlog" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.read.1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.write.1.tlog" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.write.1.tlog" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,10 +26,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/WbsProject$plot_test.coverage" NAME="plot_test Coverage Results" MODIFIED="1583155942656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WbsProject$plot_gamma.coverage" NAME="plot_gamma Coverage Results" MODIFIED="1583256958706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WbsProject$plot_test.coverage" NAME="plot_test Coverage Results" MODIFIED="1583338420969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WbsProject$plot_gamma.coverage" NAME="plot_gamma Coverage Results" MODIFIED="1583338957940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WbsProject$plot_vega.coverage" NAME="plot_vega Coverage Results" MODIFIED="1583254021243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WbsProject$plot_delta.coverage" NAME="plot_delta Coverage Results" MODIFIED="1583253980004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WbsProject$plot_delta.coverage" NAME="plot_delta Coverage Results" MODIFIED="1583338626184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WbsProject$plot_price.coverage" NAME="plot_price Coverage Results" MODIFIED="1583253958656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -56,8 +37,8 @@
       <file leaf-file-name="plot_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plot_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+            <state relative-caret-position="110">
+              <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -80,8 +61,8 @@
       <file leaf-file-name="plot_delta.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plot_delta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+            <state relative-caret-position="286">
+              <caret line="13" column="12" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="10" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -92,8 +73,8 @@
       <file leaf-file-name="plot_gamma.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plot_gamma.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="64" lean-forward="false" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+            <state relative-caret-position="220">
+              <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -162,14 +143,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/plot_test.py" />
         <option value="$PROJECT_DIR$/plot_paths.py" />
         <option value="$PROJECT_DIR$/plot_rho.py" />
         <option value="$PROJECT_DIR$/plot_theta.py" />
-        <option value="$PROJECT_DIR$/plot_gamma.py" />
         <option value="$PROJECT_DIR$/plot_price.py" />
-        <option value="$PROJECT_DIR$/plot_delta.py" />
         <option value="$PROJECT_DIR$/plot_vega.py" />
+        <option value="$PROJECT_DIR$/plot_test.py" />
+        <option value="$PROJECT_DIR$/plot_delta.py" />
+        <option value="$PROJECT_DIR$/plot_gamma.py" />
       </list>
     </option>
   </component>
@@ -332,10 +313,10 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.plot_gamma" />
-        <item index="1" class="java.lang.String" itemvalue="Python.plot_vega" />
-        <item index="2" class="java.lang.String" itemvalue="Python.plot_delta" />
-        <item index="3" class="java.lang.String" itemvalue="Python.plot_price" />
-        <item index="4" class="java.lang.String" itemvalue="Python.plot_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plot_delta" />
+        <item index="2" class="java.lang.String" itemvalue="Python.plot_test" />
+        <item index="3" class="java.lang.String" itemvalue="Python.plot_vega" />
+        <item index="4" class="java.lang.String" itemvalue="Python.plot_price" />
       </list>
     </recent_temporary>
   </component>
@@ -354,7 +335,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -362,7 +342,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3319194" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3319194" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -449,16 +429,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plot_paths.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -489,16 +459,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_delta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plot_price.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -517,10 +477,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_gamma.py">
+    <entry file="file://$PROJECT_DIR$/plot_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
-          <caret line="5" column="64" lean-forward="false" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_delta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" column="12" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_gamma.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
