@@ -13,6 +13,9 @@ private:
 	std::shared_ptr<OptionData> data;	// The data for the option
 public:
 	SDE(const OptionData& optionData) : data(new OptionData(optionData)) {}
+	
+	double exact_drift(double t, double S);
+	double exact_diffusion(double t, double S);
 
 	double drift(double t, double S);
 	double diffusion(double t, double S);

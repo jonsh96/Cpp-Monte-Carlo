@@ -102,6 +102,48 @@ public:
 	}
 };
 
+// ----------------------------------------------------------------
+// https://en.wikipedia.org/wiki/asian_option
+// ----------------------------------------------------------------
+
+class AsianCallPrice final : public OptionCommand
+{
+public:
+	explicit AsianCallPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~AsianCallPrice() {};
+
+	virtual double execute(double S) override
+	{
+		double sig_g = sig / sqrt(3.0);
+		double B = 0.5 * (r - 0.5 * sig_g * sig_g);
+		double d1 = (log(S / K) + (B + 0.5 * sig_g * sig_g) * T) / (sig_g * sqrt(T));
+		double d2 = d1 - sig_g * sqrt(T);
+		return S * std::exp((B - r) * T) * N(d1) - K * std::exp(-r * T) * N(d2);
+	}
+};
+
+class AsianPutPrice final : public OptionCommand
+{
+public:
+	explicit AsianPutPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~AsianPutPrice() {};
+
+	virtual double execute(double S) override
+	{
+		double sig_g = sig / sqrt(3.0);
+		double B = 0.5 * (r - 0.5 * sig_g * sig_g);
+		double d1 = (log(S / K) + (B + 0.5 * sig_g * sig_g) * T) / (sig_g * sqrt(T));
+		double d2 = d1 - sig_g * sqrt(T);
+
+		return K * std::exp(-r * T) * N(-d2) - S * std::exp((B - r) * T) * N(-d1);
+	}
+};
+// ----------------------------------------------------------------
+
 class CallDelta final : public OptionCommand
 {
 public:

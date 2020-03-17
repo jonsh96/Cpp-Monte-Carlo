@@ -3,6 +3,7 @@
 // TODO: COMMENT
 BlackScholes::BlackScholes(const BlackScholes& bs)
 {
+	this->vanilla = vanilla;
 	this->K = bs.K;
 	this->r = bs.r;
 	this->T = bs.T;
@@ -26,8 +27,9 @@ BlackScholes::BlackScholes(const BlackScholes& bs)
 	this->rhos = bs.rhos;
 }
 
-BlackScholes::BlackScholes(double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS)
+BlackScholes::BlackScholes(bool vanilla, double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS)
 {
+	this->vanilla = vanilla;
 	this->K = K;
 	this->r = r;
 	this->T = T; 
@@ -39,21 +41,45 @@ BlackScholes::BlackScholes(double K, double r, double T, double D, double sigma,
 	this->type = type;
 	if (type == 'C')
 	{
-		this->price = new CallPrice(K, T, r, D, sigma);
-		this->delta = new CallDelta(K, T, r, D, sigma);
-		this->gamma = new CallGamma(K, T, r, D, sigma);
-		this->theta = new CallTheta(K, T, r, D, sigma);
-		this->vega = new CallVega(K, T, r, D, sigma);
-		this->rho = new CallRho(K, T, r, D, sigma);
+		if (this->vanilla)
+		{
+			this->price = new CallPrice(K, T, r, D, sigma);
+			this->delta = new CallDelta(K, T, r, D, sigma);
+			this->gamma = new CallGamma(K, T, r, D, sigma);
+			this->theta = new CallTheta(K, T, r, D, sigma);
+			this->vega = new CallVega(K, T, r, D, sigma);
+			this->rho = new CallRho(K, T, r, D, sigma);
+		}
+		else
+		{
+			this->price = new AsianCallPrice(K, T, r, D, sigma); //TODO: ASIAN GREEKS
+			this->delta = new CallDelta(K, T, r, D, sigma);
+			this->gamma = new CallGamma(K, T, r, D, sigma);
+			this->theta = new CallTheta(K, T, r, D, sigma);
+			this->vega = new CallVega(K, T, r, D, sigma);
+			this->rho = new CallRho(K, T, r, D, sigma);
+		}
 	}
 	else
 	{
-		this->price = new PutPrice(K, T, r, D, sigma);
-		this->delta = new PutDelta(K, T, r, D, sigma);
-		this->gamma = new PutGamma(K, T, r, D, sigma);
-		this->theta = new PutTheta(K, T, r, D, sigma);
-		this->vega = new PutVega(K, T, r, D, sigma);
-		this->rho = new PutRho(K, T, r, D, sigma);
+		if (this->vanilla)
+		{
+			this->price = new PutPrice(K, T, r, D, sigma);
+			this->delta = new PutDelta(K, T, r, D, sigma);
+			this->gamma = new PutGamma(K, T, r, D, sigma);
+			this->theta = new PutTheta(K, T, r, D, sigma);
+			this->vega = new PutVega(K, T, r, D, sigma);
+			this->rho = new PutRho(K, T, r, D, sigma);
+		}
+		else
+		{
+			this->price = new AsianPutPrice(K, T, r, D, sigma); // TODO: ASIAN GREEKS
+			this->delta = new PutDelta(K, T, r, D, sigma);
+			this->gamma = new PutGamma(K, T, r, D, sigma);
+			this->theta = new PutTheta(K, T, r, D, sigma);
+			this->vega = new PutVega(K, T, r, D, sigma);
+			this->rho = new PutRho(K, T, r, D, sigma);
+		}
 	}
 	generateData(Smin,Smax,dS);
 	storeData();

@@ -15,6 +15,7 @@ private:
 	double K, r, T, D, sigma;
 	double Smin, Smax, dS;
 	char type; 
+	bool vanilla;
 	OptionCommand *price;
 	OptionCommand *delta;
 	OptionCommand *gamma;
@@ -33,9 +34,9 @@ private:
 
 public:
 	// CONSTRUCTORS AND DESTRUCTORS
-	BlackScholes() : K(0.0), r(0.0), T(0.0), D(0.0), sigma(0.0), type('C'), Smin(0.0), Smax(0.0), dS(0.0){};
+	BlackScholes() : vanilla(true), K(0.0), r(0.0), T(0.0), D(0.0), sigma(0.0), type('C'), Smin(0.0), Smax(0.0), dS(0.0){};
 	BlackScholes(const BlackScholes& bs);
-	BlackScholes(double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS);
+	BlackScholes(bool vanilla, double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS);
 	~BlackScholes();
 
 	// GET FUNCTIONS 

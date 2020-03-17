@@ -1,9 +1,82 @@
 #include "MonteCarlo.hpp" 
+#include <sstream>
+#include <math.h>
+#include <tuple>
+#include <stdexcept>
 
-// TODO: COPY CONSTRUCTOR
+// -----------------------------------------------------------------------------------------
+// Helper functions for normal cdf inverse from
+// https://www.johndcook.com/blog/cpp_phi_inverse/
 
-// TODO: COMMENT
-MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS, long NT, long M)
+double RationalApproximation(double t)
+{
+	// Abramowitz and Stegun formula 26.2.23.
+	// The absolute value of the error should be less than 4.5 e-4.
+	double c[] = { 2.515517, 0.802853, 0.010328 };
+	double d[] = { 1.432788, 0.189269, 0.001308 };
+	return t - ((c[2] * t + c[1]) * t + c[0]) / (((d[2] * t + d[1]) * t + d[0]) * t + 1.0);
+}
+
+double NormalCDFInverse(double p)
+{
+	if (p <= 0.0 || p >= 1.0)
+	{
+		std::stringstream os;
+		os << "Invalid input argument (" << p
+			<< "); must be larger than 0 but less than 1.";
+		throw std::invalid_argument(os.str());
+	}
+
+	// See article above for explanation of this section.
+	if (p < 0.5)
+	{
+		// F^-1(p) = - G^-1(p)
+		return -RationalApproximation(sqrt(-2.0 * log(p)));
+	}
+	else
+	{
+		// F^-1(p) = G^-1(1-p)
+		return RationalApproximation(sqrt(-2.0 * log(1 - p)));
+	}
+}
+// -----------------------------------------------------------------------------------------
+
+MonteCarlo::MonteCarlo(const MonteCarlo& MC)
+{
+	// Set the number of threads to use
+	omp_set_num_threads(8);	// Number of threads = 8
+
+	// Copy values over
+	this->myOption = MC.myOption;
+	this->S0 = MC.myOption.S0;
+	this->Smin = MC.Smin;
+	this->Smax = MC.Smax;
+	this->dS = MC.dS;
+	this->NT = MC.NT;
+	this->M = MC.M;
+	this->dollarAccuracy = MC.dollarAccuracy;
+	this->percentile = MC.percentile;
+	this->isExact = MC.isExact;
+
+	// Initialise measurements
+	this->SD = MC.SD;
+	this->SE = MC.SE;
+	this->timeElapsed = MC.timeElapsed;
+	this->option_price = MC.option_price;
+
+	// Create instance of the Black Scholes data structure
+	BlackScholes BS(MC.myOption.vanilla, MC.myOption.K, MC.myOption.r, MC.myOption.T, MC.myOption.D, 
+		MC.myOption.sigma, MC.myOption.type, MC.Smin, MC.Smax, MC.dS);
+	this->bsOption = BS;
+
+	// Start the Monte Carlo Process
+	generateData();
+}
+
+
+// Default constructor
+MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS, 
+	long NT, long M, double percentile, double dollarAccuracy, bool isExact)
 {
 	// Set the number of threads to use
 	omp_set_num_threads(8);	// Number of threads = 8
@@ -16,6 +89,9 @@ MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS
 	this->dS = dS;
 	this->NT = NT;
 	this->M = M;
+	this->percentile = percentile;
+	this->dollarAccuracy = dollarAccuracy;
+	this->isExact = isExact;
 
 	// Initialise measurements
 	this->SD = 0.0;
@@ -24,7 +100,7 @@ MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS
 	this->option_price = 0.0;
 
 	// Create instance of the Black Scholes data structure
-	BlackScholes BS(OD.K, OD.r, OD.T, OD.D, OD.sigma, OD.type, Smin, Smax, dS);
+	BlackScholes BS(OD.vanilla, OD.K, OD.r, OD.T, OD.D, OD.sigma, OD.type, Smin, Smax, dS);
 	this->bsOption = BS;
 
 	// Start the Monte Carlo Process
@@ -44,16 +120,15 @@ void MonteCarlo::generateData()
 void MonteCarlo::generateWienerProcesses()
 {
 	// Normal (0,1) rng
-	// TODO: allow for more random engines
-	// std::default_random_engine dre;
-	// std::normal_distribution<double> nor(0.0, 1.0);
-	std::random_device rd;
+	std::mt19937 rd;
 	std::default_random_engine generator(rd()); // rd() provides a random seed
 	std::normal_distribution<double> distribution(0, 1);
-	//uniform_real_distribution<float> distribution(0, 1);
 	
 	// Initialise matrix of Wiener paths
 	std::vector<std::vector<double>> temp_paths;
+
+	double dt = this->myOption.T / static_cast<double>(this->NT);
+	double sqrdt = std::sqrt(dt);
 
 	for (long i = 0; i <= this->M; ++i)
 	{
@@ -62,7 +137,7 @@ void MonteCarlo::generateWienerProcesses()
 		for (long j = 0; j <= NT; ++j)
 		{
 			// Add a random normally distributed Wiener process to the Wiener path
-			temp_path.push_back(distribution(generator));
+			temp_path.push_back(sqrdt * distribution(generator));
 		}
 		temp_paths.push_back(temp_path);
 	}
@@ -75,7 +150,7 @@ void MonteCarlo::generatePaths(double S)
 	// Define and initialise variables 
 	double dt = this->myOption.T / static_cast<double>(this->NT);
 	double sqrdt = std::sqrt(dt);
-	double VOld, VNew, x;
+	double x = 0;
 	double avgPayoffT = 0.0;
 	double squaredPayoff = 0.0;
 	double sumPriceT = 0.0;
@@ -84,36 +159,77 @@ void MonteCarlo::generatePaths(double S)
 	SDE sde = SDE(this->myOption);
 
 	// Create a matrix to store the paths in
-	std::vector<std::vector<double>> temp_paths;
+	std::vector<std::vector<double>> temp_paths_plus;
+	std::vector<std::vector<double>> temp_paths_minus;
 
 	// Store M as a double to avoid problem when dividing later
 	double M = static_cast<double>(this->M);
+	double dx;
+	double v = this->myOption.r - this->myOption.D - 0.5 * this->myOption.sigma * this->myOption.sigma;
 
 	// Loop through the number of simulations 
 	for (long i = 1; i <= this->M; ++i)
 	{ 
 		// Calculate a path at each iteration
-		std::vector<double> temp_path;
+		std::vector<double> temp_path_plus;
+		std::vector<double> temp_path_minus;
 
-		VOld = S;
-		x = 0.0;
-	
-		// Loop through the number of time steps
-		for (long index = 0; index <= NT; ++index)
+		// Tuples to store plus and minus paths for AVR // TODO: COMMENT
+		std::tuple <double, double> VOld;
+		std::tuple <double, double> VNew;
+
+		if (this->isExact)
 		{
-			// TODO: COMMENT
-			// The FDM (in this case explicit Euler), equation (9.2) from the text
-			VNew = VOld + (dt * sde.drift(x, VOld)) + (sqrdt * sde.diffusion(x, VOld) * dW[i][index]);
-			temp_path.push_back(VOld);
-			VOld = VNew;
-			x += dt;
+			// Initialise tuples
+			VOld = std::make_tuple(S, S);
+			VNew = std::make_tuple(0.0, 0.0);
+
+			// x = 0.0;
+			// Loop through the number of time steps
+			for (long index = 0; index < NT; ++index)
+			{
+				std::get<0>(VNew) = std::get<0>(VOld) * std::exp(v * dt + this->myOption.sigma * dW[i][index]);
+				std::get<1>(VNew) = std::get<1>(VOld) * std::exp(v * dt - this->myOption.sigma * dW[i][index]);
+				//std::cout << std::exp(VOld) << "\n";
+				temp_path_plus.push_back(std::get<0>(VOld));
+				temp_path_minus.push_back(std::get<1>(VOld));
+
+				std::get<0>(VOld) = std::get<0>(VNew);
+				std::get<1>(VOld) = std::get<1>(VNew);
+			}
+		}
+		else
+		{
+			// Initialise tuples
+			VOld = std::make_tuple(S, S);
+			VNew = std::make_tuple(0.0, 0.0);
+
+			// Loop through the number of time steps
+			for (long index = 0; index <= NT; ++index)
+			{
+				// TODO: COMMENT
+				// The FDM (in this case explicit Euler), equation (9.2) from the text
+				std::get<0>(VNew) = std::get<0>(VOld) + (dt * sde.drift(x, std::get<0>(VOld))) + (sde.diffusion(x, std::get<0>(VOld)) * dW[i][index]);
+				std::get<1>(VNew) = std::get<1>(VOld) + (dt * sde.drift(x, std::get<1>(VOld))) - (sde.diffusion(x, std::get<1>(VOld)) * dW[i][index]);
+				
+				temp_path_plus.push_back(std::get<0>(VOld));
+				temp_path_minus.push_back(std::get<1>(VOld));
+
+				std::get<0>(VOld) = std::get<0>(VNew);
+				std::get<1>(VOld) = std::get<1>(VNew);
+
+				x += dt;
+			}
 		}
 		// Store path in matrix
-		temp_path.push_back(VOld);
-		temp_paths.push_back(temp_path);
+		temp_path_plus.push_back(std::get<0>(VOld));
+		temp_path_minus.push_back(std::get<1>(VOld));
+		temp_paths_plus.push_back(temp_path_plus);
+		temp_paths_minus.push_back(temp_path_minus);
 	}
 	// Store paths
-	this->paths = temp_paths;
+	this->paths_plus = temp_paths_plus;
+	this->paths_minus = temp_paths_minus;
 
 	// Calculate the price 
 	calculatePrice();
@@ -142,8 +258,10 @@ void MonteCarlo::generatePrices(double Smin, double Smax, double dS)
 
 void MonteCarlo::generateDeltas()
 {
+	// Define and initialise variables 
 	double prev = 0.0;
-	double curr = 0.0;
+	double next = 0.0;
+	double delta;
 
 	// If there are no prices available, delta cannot be calculated, therefore generatePrices is called
 	if (this->prices.size() == 0)
@@ -151,71 +269,73 @@ void MonteCarlo::generateDeltas()
 		generatePrices(Smin, Smax, dS);
 	}
 
-	// Loop through price map 
-	for(auto it = this->prices.begin(); it != this->prices.end(); it++)
+	// Loop through price map (not including boundary elements)
+	for(double s = Smin+dS; s < Smax-dS; s += dS)
 	{
-		// Special case for first value as delta cannot be calculated theres
-		if (it == this->prices.begin())
-		{
-			prev = it->second;
-		}
-		else
-		{
-			// TODO: COMMENT + TRY DIFFERENT METHOD
-			curr = it->second;
-			this->deltas.insert(std::pair<double, double>(it->first, (curr - prev)/this->dS));
-			prev = curr;
-		}
+		prev = this->prices.at(s - dS);
+		next = this->prices.at(s + dS);
+
+		// Delta (dC/dS) calculated using the centred finite-difference
+		delta = (next - prev) / (2.0 * (this->dS));
+		this->deltas.insert(std::pair<double, double>(s, delta));
 	}
 }
 
 void MonteCarlo::generateGammas()
 {
+	// Define and initialise variables 
 	double prev = 0.0;
 	double curr = 0.0;
+	double next = 0.0;
+	double gamma;
 
-	// If there are no gammas
-	if (this->deltas.size() == 0)
+	// If there are no prices available, gamma cannot be calculated, therefore generatePrices is called
+	if (this->prices.size() == 0)
 	{
-		generateDeltas();
+		generatePrices(Smin, Smax, dS);
 	}
-	for (auto it = this->deltas.begin(); it != this->deltas.end(); it++)
+
+	// Loop through price map (not including boundary elements)
+	for (double s = Smin + dS; s < Smax - dS; s += dS)
 	{
-		if (it == this->deltas.begin())
-		{
-			prev = it->second;
-		}
-		else
-		{
-			curr = it->second;
-			this->gammas.insert(std::pair<double, double>(it->first, (curr - prev) / this->dS));
-			prev = curr;
-		}
+		prev = this->prices.at(s - dS);
+		curr = this->prices.at(s);
+		next = this->prices.at(s + dS);
+
+		// Gamma (dC^2/(dS)^2 calculated with the second-order central difference method
+		gamma = (next - 2.0 * curr + prev) / (this->dS * this->dS);
+		this->gammas.insert(std::pair<double, double>(s,gamma));
 	}
 }
 
 void MonteCarlo::storeData()
 {
-	this->bsOption.writeToFile(this->prices, "MC_prices.txt");
-	this->bsOption.writeToFile(this->deltas, "MC_deltas.txt");
-	this->bsOption.writeToFile(this->gammas, "MC_gammas.txt");
+	// Write the maps (prices, deltas, gammas) to text file to plot data in Python
+	if (this->isExact)
+	{
+		this->bsOption.writeToFile(this->prices, "MC_exact_prices.txt");
+		this->bsOption.writeToFile(this->deltas, "MC_exact_deltas.txt");
+		this->bsOption.writeToFile(this->gammas, "MC_exact_gammas.txt");
+	}
+	else
+	{
+		this->bsOption.writeToFile(this->prices, "MC_prices.txt");
+		this->bsOption.writeToFile(this->deltas, "MC_deltas.txt");
+		this->bsOption.writeToFile(this->gammas, "MC_gammas.txt");
+	}
 }
 
+// Set functions
 void MonteCarlo::setInitialPrice(double S)
 {
 	this->S0 = S;
 	this->myOption.setInitialPrice(S);
 }
-
-void MonteCarlo::setNumberOfTimeSteps(long NT)
-{
-	this->NT = NT;
-}
-
-void MonteCarlo::setNumberOfSimulations(long M)
-{
-	this->M = M;
-}
+void MonteCarlo::setMinimumPrice(double Smin) { this->Smin = Smin; }
+void MonteCarlo::setMaximumPrice(double Smax) { this->Smax = Smax; };
+void MonteCarlo::setNumberOfSteps(long NT) { this->NT = NT; }
+void MonteCarlo::setStepSize(double dS) { this->dS = dS; }
+void MonteCarlo::setNumberOfSimulations(long M) { this->M = M; }
 
 void MonteCarlo::setOptionData(const OptionData& op)
 {
@@ -229,35 +349,15 @@ void MonteCarlo::setOptionData(const OptionData& op)
 	this->myOption.setOptionType(op.vanilla);
 }
 
-void MonteCarlo::setPaths(const std::vector<std::vector<double>>& mat)
-{
-	this->paths = mat;
-}
+//void MonteCarlo::setPaths(const std::vector<std::vector<double>>& mat) { this->paths = mat; }
 
-double MonteCarlo::getInitialPrice()
-{
-	return this->S0;
-}
-
-double MonteCarlo::getStandardDeviation()
-{
-	return this->SD;
-}
-
-double MonteCarlo::getStandardError()
-{
-	return this->SE;
-}
-
-long MonteCarlo::getNumberOfTimeSteps()
-{
-	return this->NT;
-}
-
-long MonteCarlo::getNumberOfSimulations()
-{
-	return this->M;
-}
+// Get functions
+double MonteCarlo::getOptionPrice() { return this->option_price; }
+double MonteCarlo::getInitialPrice() { return this->S0; }
+double MonteCarlo::getStandardDeviation() { return this->SD; }
+double MonteCarlo::getStandardError() { return this->SE; }
+long MonteCarlo::getNumberOfTimeSteps() { return this->NT; }
+long MonteCarlo::getNumberOfSimulations() { return this->M; }
 
 // TODO: FIX THIS
 //OptionData MonteCarlo::getOptionData()
@@ -265,20 +365,25 @@ long MonteCarlo::getNumberOfSimulations()
 //	return this->myOption;
 //}
 
-std::vector<std::vector<double>> MonteCarlo::getPaths()
-{
-	return this->paths;
-}
+//std::vector<std::vector<double>> MonteCarlo::getPaths() { return this->paths; }
 
+// Calculation functions
 void MonteCarlo::calculatePrice()
 {
+	// Initialise and define variables 
 	double payoffT;
 	double sumPriceT = 0.0;
 	double squaredPayoffT = 0.0;
+
+	// Convert number of simulations to double for division later on
 	double MC = static_cast<double>(this->M);
+
+	// Loop through number of simulations, calculate payoff in OptionData
 	for (long i = 1; i < this->M; i++)
 	{
-		payoffT = myOption.payoff(this->paths[i]);
+		// Send the entire path into myOption, there the price will be calculated whether
+		// the option is pathwise dependent (e.g. Asian) or not (e.g. European)
+		payoffT = 0.5 * (myOption.payoff(this->paths_plus[i]) + myOption.payoff(this->paths_minus[i]));
 		sumPriceT += payoffT;
 		squaredPayoffT += (payoffT * payoffT);
 	}
@@ -290,14 +395,17 @@ void MonteCarlo::calculatePrice()
 
 double MonteCarlo::maxPricingError()
 {
-	// CALCULATIONS: INFINITY NORM
-	// TODO: max general for two maps?
+	// Calculate the maximum pricing error in the range of prices
 	double maxError = 0.0;
 	double tempError;
+
+	// Getting the Black Scholes prices from OptionData
 	std::map<double, double> bsPrices = this->bsOption.getPriceMap();
 
+	// Looping through the range of prices
 	for (double s = this->Smin; s < this->Smax; s += this->dS)
-	{
+	{	
+		// Calculating the error at each stock price and comparing it to the current maximum
 		tempError = std::abs(prices.at(s) - bsPrices.at(s));
 		if (tempError > maxError)
 			maxError = tempError;
@@ -307,11 +415,14 @@ double MonteCarlo::maxPricingError()
 
 double MonteCarlo::maxStandardError()
 {
+	// Calculating the maximum standard error
 	double maxError = 0.0;
 	double tempError;
 
+	// Looping through the range of prices
 	for (double s = this->Smin; s < this->Smax; s += this->dS)
-	{
+	{	
+		// Comparing the current standard error to the maximum
 		tempError = this->stderror.at(s);
 		if (tempError > maxError)
 			maxError = tempError;
@@ -320,12 +431,15 @@ double MonteCarlo::maxStandardError()
 }
 
 double MonteCarlo::maxStandardDeviation()
-{
+{	
+	// Calculating the maximum standard deviation
 	double maxError = 0.0;
 	double tempError;
 
+	// Looping through the range of prices
 	for (double s = this->Smin; s < this->Smax; s += this->dS)
 	{
+		// Comparing the current standard deviation to the maximum
 		tempError = this->stddev.at(s);
 		if (tempError > maxError)
 			maxError = tempError;
@@ -334,26 +448,29 @@ double MonteCarlo::maxStandardDeviation()
 }
 long MonteCarlo::minSimulationsNeeded()
 {
-	return std::lround(std::pow((this->maxStandardDeviation() * 1.96 / std::sqrt(0.01)), 2));
+	// Calculating the minimum number of simulations to achieve a X% accurate result within $Y
+	// TODO: ADD INPUTS FOR ACCURACY
+	long N = std::lround(std::pow((this->maxStandardDeviation() * NormalCDFInverse(this->percentile) / std::sqrt(this->dollarAccuracy)), 2));
+	return N;
 }
 
-void MonteCarlo::printPathsToText()
+void MonteCarlo::saveTitle()
 {
-	// Text file - needs fstream and stdio
+	// Writing the title for the plots
 	std::ofstream title_file;
 	title_file.open("title.txt");
-
-	title_file << "Simulations with parameters: \n(S(t), T, r, D, sigma, NT, M) = (";
-	title_file << myOption;
-	title_file << this->NT << ", ";
-	title_file << this->M << ")";
+	title_file << *this; // Using overloaded << operator 
 	title_file.close();
+}
 
+/*void MonteCarlo::printPathsToText()
+{
+	// Write paths to text file in order to plot in Python
 	std::ofstream path_file;
 	path_file.open("paths.txt");
 	for (long i = 0; i < this->M; i++)
 	{
-		for (long j = 0; j < this->NT; j++)
+		for (long j = 0; j < this->NT; j++)  
 		{
 			path_file << paths[i][j];
 			if (j < NT - 1)
@@ -362,12 +479,14 @@ void MonteCarlo::printPathsToText()
 		path_file << std::endl;
 	}
 	path_file.close();
-}
+}*/
 
 void MonteCarlo::refresh()
 {
+	// Clear all the data from previous run
 	this->dW.clear();
-	this->paths.clear();
+	this->paths_plus.clear();
+	this->paths_minus.clear();
 	this->stddev.clear();
 	this->stderror.clear();
 	this->prices.clear();
@@ -375,9 +494,9 @@ void MonteCarlo::refresh()
 	this->gammas.clear();
 }
 
-// TODO: FIX 
 void MonteCarlo::printSummary()
 {
+	// Print summary of the previous run
 	std::cout << "----------------------------------";
 	std::cout << "\nSummary of Monte Carlo simulation:";
 	std::cout << "\n----------------------------------";
@@ -385,41 +504,40 @@ void MonteCarlo::printSummary()
 	std::cout << "\nMax standard error:\t" << this->maxStandardError();
 	std::cout << "\nMax standard deviation:\t" << this->maxStandardDeviation();
 	std::cout << "\nMin simulations needed:\t" << this->minSimulationsNeeded();
-
-	//std::cout << "\nPrice of option:\t" << this->option_price;
-	//std::cout << "\nBlack Scholes price:\t" << this->bsOption.getPrice(this->S0);
 	std::cout << "\nTime elapsed:\t\t" << this->timeElapsed;
 	std::cout << "\n----------------------------------\n";
 }
 
 void MonteCarlo::plotPaths()
 {
-	// Use system command to execute python file
-	std::string command = "python.exe plot_test.py";
+	// Plot paths using the system command to execute python file
+	std::string command = "plot_test.py";
 	system(command.c_str());
 }
 
 void MonteCarlo::plotPrices()
 {
-	// Use system command to execute python file
-	std::string command = "python.exe plot_price.py";
+	// Plot price using the system command to execute python file
+	std::string command = "plot_price.py";
 	system(command.c_str());
 }
 
-
 void MonteCarlo::plotDeltas()
 {
-	// Use system command to execute python file
-	std::string command = "python.exe plot_delta.py";
+	// Plot deltas using the system command to execute python file
+	std::string command = "plot_delta.py";
 	system(command.c_str());
 }
 
 void MonteCarlo::plotGammas()
 {
-	// Use system command to execute python file
-	std::string command = "python.exe plot_gamma.py";
+	// Plot gammas using the system command to execute python file
+	std::string command = "plot_gamma.py";
 	system(command.c_str());
 }
+
+/*  CANCELLED
+	Would require a new Monte Carlo class/function
 
 void MonteCarlo::plotThetas()
 {
@@ -450,4 +568,12 @@ void MonteCarlo::plotGreeks()
 	this->plotThetas();
 	this->plotVegas();
 	this->plotRhos();
+} */
+
+std::ostream& operator<<(std::ostream& os, const MonteCarlo& MC)
+{	
+	// Overloaded print function
+	os << "Simulations with parameters: \n(Smin, Smax, T, r, D, sigma, NT, M) = (";
+	os << MC.Smin << ", " << MC.Smax << ", " << MC.myOption << ", " << MC.NT << ", " << MC.M << ")";
+	return os;
 }
