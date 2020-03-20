@@ -1,7 +1,7 @@
-#include "BlackScholes.hpp"
+#include "FairValue.hpp"
 
 // TODO: COMMENT
-BlackScholes::BlackScholes(const BlackScholes& bs)
+FairValue::FairValue(const FairValue& bs)
 {
 	this->vanilla = vanilla;
 	this->K = bs.K;
@@ -27,7 +27,7 @@ BlackScholes::BlackScholes(const BlackScholes& bs)
 	this->rhos = bs.rhos;
 }
 
-BlackScholes::BlackScholes(bool vanilla, double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS)
+FairValue::FairValue(bool vanilla, double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS)
 {
 	this->vanilla = vanilla;
 	this->K = K;
@@ -53,8 +53,8 @@ BlackScholes::BlackScholes(bool vanilla, double K, double r, double T, double D,
 		else
 		{
 			this->price = new AsianCallPrice(K, T, r, D, sigma); //TODO: ASIAN GREEKS
-			this->delta = new CallDelta(K, T, r, D, sigma);
-			this->gamma = new CallGamma(K, T, r, D, sigma);
+			this->delta = new AsianCallDelta(K, T, r, D, sigma);
+			this->gamma = new AsianCallGamma(K, T, r, D, sigma);
 			this->theta = new CallTheta(K, T, r, D, sigma);
 			this->vega = new CallVega(K, T, r, D, sigma);
 			this->rho = new CallRho(K, T, r, D, sigma);
@@ -74,8 +74,8 @@ BlackScholes::BlackScholes(bool vanilla, double K, double r, double T, double D,
 		else
 		{
 			this->price = new AsianPutPrice(K, T, r, D, sigma); // TODO: ASIAN GREEKS
-			this->delta = new PutDelta(K, T, r, D, sigma);
-			this->gamma = new PutGamma(K, T, r, D, sigma);
+			this->delta = new AsianPutDelta(K, T, r, D, sigma);
+			this->gamma = new AsianPutGamma(K, T, r, D, sigma);
 			this->theta = new PutTheta(K, T, r, D, sigma);
 			this->vega = new PutVega(K, T, r, D, sigma);
 			this->rho = new PutRho(K, T, r, D, sigma);
@@ -84,7 +84,7 @@ BlackScholes::BlackScholes(bool vanilla, double K, double r, double T, double D,
 	generateData(Smin,Smax,dS);
 	storeData();
 }
-BlackScholes::~BlackScholes()
+FairValue::~FairValue()
 {
 /*	delete this->price;
 	delete this->delta;
@@ -94,56 +94,56 @@ BlackScholes::~BlackScholes()
 	delete this->rho*/
 }
 
-double BlackScholes::getPrice(double S)
+double FairValue::getPrice(double S)
 {
 	return this->price->execute(S);
 }
-double BlackScholes::getDelta(double S)
+double FairValue::getDelta(double S)
 {
 	return this->delta->execute(S);
 }
-double BlackScholes::getGamma(double S)
+double FairValue::getGamma(double S)
 {
 	return this->gamma->execute(S);
 }
-double BlackScholes::getTheta(double S)
+double FairValue::getTheta(double S)
 {
 	return this->theta->execute(S);
 }
-double BlackScholes::getVega(double S)
+double FairValue::getVega(double S)
 {
 	return this->vega->execute(S);
 }
-double BlackScholes::getRho(double S)
+double FairValue::getRho(double S)
 {
 	return this->rho->execute(S);
 }
-std::map<double, double> BlackScholes::getPriceMap()
+std::map<double, double> FairValue::getPriceMap()
 {
 	return this->prices;
 }
-std::map<double, double> BlackScholes::getDeltaMap()
+std::map<double, double> FairValue::getDeltaMap()
 {
 	return this->deltas;
 }
-std::map<double, double> BlackScholes::getGammaMap()
+std::map<double, double> FairValue::getGammaMap()
 {
 	return this->gammas;
 }
-std::map<double, double> BlackScholes::getThetaMap()
+std::map<double, double> FairValue::getThetaMap()
 {
 	return this->thetas;
 }
-std::map<double, double> BlackScholes::getVegaMap()
+std::map<double, double> FairValue::getVegaMap()
 {
 	return this->vegas;
 }
-std::map<double, double> BlackScholes::getRhoMap()
+std::map<double, double> FairValue::getRhoMap()
 {
 	return this->rhos;
 }
 
-void BlackScholes::generateData(double Smin, double Smax, double dS)
+void FairValue::generateData(double Smin, double Smax, double dS)
 {
 	this->prices = generatePrices(Smin, Smax, dS);
 	this->deltas = generateDeltas(Smin, Smax, dS);
@@ -153,7 +153,7 @@ void BlackScholes::generateData(double Smin, double Smax, double dS)
 	this->rhos = generateRhos(Smin, Smax, dS);
 }
 
-std::map<double, double> BlackScholes::generatePrices(double Smin, double Smax, double dS)
+std::map<double, double> FairValue::generatePrices(double Smin, double Smax, double dS)
 {
 	std::map<double, double> myMap;
 	for (double s = Smin; s < Smax; s += dS)
@@ -163,7 +163,7 @@ std::map<double, double> BlackScholes::generatePrices(double Smin, double Smax, 
 	return myMap;
 }
 
-std::map<double, double> BlackScholes::generateDeltas(double Smin, double Smax, double dS)
+std::map<double, double> FairValue::generateDeltas(double Smin, double Smax, double dS)
 {
 	std::map<double, double> myMap;
 	for (double s = Smin; s < Smax; s += dS)
@@ -173,7 +173,7 @@ std::map<double, double> BlackScholes::generateDeltas(double Smin, double Smax, 
 	return myMap;
 }
 
-std::map<double, double> BlackScholes::generateGammas(double Smin, double Smax, double dS)
+std::map<double, double> FairValue::generateGammas(double Smin, double Smax, double dS)
 {
 	std::map<double, double> myMap;
 	for (double s = Smin; s < Smax; s += dS)
@@ -183,7 +183,7 @@ std::map<double, double> BlackScholes::generateGammas(double Smin, double Smax, 
 	return myMap;
 }
 
-std::map<double, double> BlackScholes::generateThetas(double Smin, double Smax, double dS)
+std::map<double, double> FairValue::generateThetas(double Smin, double Smax, double dS)
 {
 	std::map<double, double> myMap;
 	for (double s = Smin; s < Smax; s += dS)
@@ -193,7 +193,7 @@ std::map<double, double> BlackScholes::generateThetas(double Smin, double Smax, 
 	return myMap;
 }
 
-std::map<double, double> BlackScholes::generateVegas(double Smin, double Smax, double dS)
+std::map<double, double> FairValue::generateVegas(double Smin, double Smax, double dS)
 {
 	std::map<double, double> myMap;
 	for (double s = Smin; s < Smax; s += dS)
@@ -203,7 +203,7 @@ std::map<double, double> BlackScholes::generateVegas(double Smin, double Smax, d
 	return myMap;
 }
 
-std::map<double, double> BlackScholes::generateRhos(double Smin, double Smax, double dS)
+std::map<double, double> FairValue::generateRhos(double Smin, double Smax, double dS)
 {
 	std::map<double, double> myMap;
 	for (double s = Smin; s < Smax; s += dS)
@@ -213,7 +213,7 @@ std::map<double, double> BlackScholes::generateRhos(double Smin, double Smax, do
 	return myMap;
 }
 
-void BlackScholes::storeData()
+void FairValue::storeData()
 {
 	this->writeToFile(this->prices, "option_price.txt");
 	this->writeToFile(this->deltas, "option_delta.txt");
@@ -223,7 +223,7 @@ void BlackScholes::storeData()
 	this->writeToFile(this->rhos, "option_rho.txt");
 }
 
-void BlackScholes::writeToFile(std::map<double, double> myMap, std::string filename)
+void FairValue::writeToFile(std::map<double, double> myMap, std::string filename)
 {
 	std::ofstream myFile;
 	myFile.open(filename);

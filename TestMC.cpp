@@ -1,13 +1,19 @@
 #include <iostream>
 #include "MonteCarlo.hpp"
 #include "OptionData.hpp"
-#include "BlackScholes.hpp"
+#include "FairValue.hpp"
 
+#include <random>
+#include <iostream>
+#include <vector>
 // TODO: COMMENT
 // TODO: ADD MORE INPUTS
 
 int main()
 {
+	// TODO: 
+	// - add predetermined options 
+	// - barrier options / more variety of exotics
 	double Smin, Smax, dS, K, T, r, sigma, D, percentile, dollarAccuracy;
 	char type;
 	bool van;
@@ -57,7 +63,7 @@ int main()
 	std::cout << "Euler summary:\n";
 	MC_euler.printSummary();
 
-	std::cout << "\nPlot prices? [Y/N]:\t";
+	std::cout << "Plot prices? [Y/N]:\t";
 	std::cin >> ans;
 	if (ans == 'Y' || ans == 'y')
 	{
@@ -78,47 +84,53 @@ int main()
 	{
 		MC_exact.plotGammas();
 	}
-	std::cout << "Rerun to get more accurate results? [Y/N]: ";
-	std::cin >> ans;
-	if (ans == 'Y' || ans == 'y')
+	
+	// Offers to rerun if results are not accurate enough
+	if (MC_euler.minSimulationsNeeded() > M || MC_exact.minSimulationsNeeded() > M)
 	{
-		MC_exact.setNumberOfSimulations(MC_exact.minSimulationsNeeded());
-		MC_exact.refresh();
-		MC_exact.generateData();
-		MC_exact.storeData();
-		MC_exact.saveTitle();
-
-		MC_euler.setNumberOfSimulations(MC_euler.minSimulationsNeeded());
-		MC_euler.refresh();
-		MC_euler.generateData();
-		MC_euler.storeData();
-
-		std::cout << "\nExact summary:\n";
-		MC_exact.printSummary();
-		std::cout << "Euler summary:\n";
-		MC_euler.printSummary();
-
-		std::cout << "\nPlot prices? [Y/N]:\t";
+		std::cout << "Rerun to get more accurate results? [Y/N]: ";
 		std::cin >> ans;
 		if (ans == 'Y' || ans == 'y')
 		{
+			MC_exact.setNumberOfSimulations(MC_exact.minSimulationsNeeded());
+			MC_exact.refresh();
+			MC_exact.generateData();
 			MC_exact.storeData();
+			MC_exact.saveTitle();
+
+			MC_euler.setNumberOfSimulations(MC_euler.minSimulationsNeeded());
+			MC_euler.refresh();
+			MC_euler.generateData();
 			MC_euler.storeData();
-			MC_exact.plotPrices();
-		}
-		std::cout << "Plot deltas? [Y/N]:\t";
-		std::cin >> ans;
-		if (ans == 'Y' || ans == 'y')
-		{
-			MC_exact.plotDeltas();
-		}
-		std::cout << "Plot gammas? [Y/N]:\t";
-		std::cin >> ans;
-		if (ans == 'Y' || ans == 'y')
-		{
-			MC_exact.plotGammas();
+
+			std::cout << "\nExact summary:\n";
+			MC_exact.printSummary();
+			std::cout << "Euler summary:\n";
+			MC_euler.printSummary();
+
+			std::cout << "\nPlot prices? [Y/N]:\t";
+			std::cin >> ans;
+			if (ans == 'Y' || ans == 'y')
+			{
+				MC_exact.storeData();
+				MC_euler.storeData();
+				MC_exact.plotPrices();
+			}
+			std::cout << "Plot deltas? [Y/N]:\t";
+			std::cin >> ans;
+			if (ans == 'Y' || ans == 'y')
+			{
+				MC_exact.plotDeltas();
+			}
+			std::cout << "Plot gammas? [Y/N]:\t";
+			std::cin >> ans;
+			if (ans == 'Y' || ans == 'y')
+			{
+				MC_exact.plotGammas();
+			}
 		}
 	}
+
 	bool isOver = false;
 	char price_ans;
 	double input_price;

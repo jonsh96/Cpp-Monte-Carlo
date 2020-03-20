@@ -1,6 +1,6 @@
-
-#ifndef BLACK_SCHOLES_HPP
-#define BLACK_SCHOLES_HPP
+// TODO: Change name?
+#ifndef FAIR_VALUE_HPP
+#define FAIR_VALUE_HPP
 
 #include "OptionCommand.hpp"
 #include <vector>
@@ -9,12 +9,13 @@
 #include <fstream>
 #include <windows.h>
 
-class BlackScholes
+class FairValue
 {
 private:
 	double K, r, T, D, sigma;
 	double Smin, Smax, dS;
 	char type; 
+	// TODO: Change vanilla to char
 	bool vanilla;
 	OptionCommand *price;
 	OptionCommand *delta;
@@ -34,10 +35,10 @@ private:
 
 public:
 	// CONSTRUCTORS AND DESTRUCTORS
-	BlackScholes() : vanilla(true), K(0.0), r(0.0), T(0.0), D(0.0), sigma(0.0), type('C'), Smin(0.0), Smax(0.0), dS(0.0){};
-	BlackScholes(const BlackScholes& bs);
-	BlackScholes(bool vanilla, double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS);
-	~BlackScholes();
+	FairValue() : vanilla(true), K(0.0), r(0.0), T(0.0), D(0.0), sigma(0.0), type('C'), Smin(0.0), Smax(0.0), dS(0.0){};
+	FairValue(const FairValue& bs);
+	FairValue(bool vanilla, double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS);
+	~FairValue();
 
 	// GET FUNCTIONS 
 	double getPrice(double S);
@@ -78,4 +79,4 @@ public:
 	void plotGreeks();*/
 };
 
-#endif // ! BLACK_SCHOLES_HPP
+#endif // ! FAIR_VALUE_HPP

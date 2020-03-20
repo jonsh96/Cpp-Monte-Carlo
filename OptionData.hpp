@@ -12,6 +12,7 @@
 #include <boost/parameter.hpp>
 #include <numeric>
 #include <vector>
+#include <string>
 #include <iostream>
 
 namespace OptionParams
@@ -32,20 +33,21 @@ struct OptionData
 	// Option data + behaviour
 	double S0, K, T, r, sigma, D;
 	char type;		// type == 'C' if call, type == 'P' if put
-	bool vanilla;	// vanilla == false if Asian option, otherwise true
+	int style;		// style == 0 if European, style == 1 if Asian
+					// TODO: add style == 3, if Barrier, style == 4 if Binary, etc 
 	
 	// Default constructor
 	explicit constexpr OptionData() : S0(0.0), K(0.0), T(0.0), r(0.0), 
-		sigma(0.0), D(0.0), type('C'), vanilla(true) {}
+		sigma(0.0), D(0.0), type('C'), style(0) {}
 
 	// Copy constructor
 	explicit constexpr OptionData(const OptionData &opt) : S0(opt.S0),  K(opt.K), 
-		T(opt.T), r(opt.r), sigma(opt.sigma), D(opt.D), type(opt.type), vanilla(opt.vanilla) {}
+		T(opt.T), r(opt.r), sigma(opt.sigma), D(opt.D), type(opt.type), style(opt.style) {}
 
 	// Constructor
 	explicit constexpr OptionData(double initialPrice, double strike, double expiration, double interestRate,
-		double volatility, double dividend, char PC, bool van) : S0(initialPrice), K(strike), T(expiration), 
-		r(interestRate), sigma(volatility), D(dividend), type(PC), vanilla(van) {}
+		double volatility, double dividend, char PC, int style) : S0(initialPrice), K(strike), T(expiration), 
+		r(interestRate), sigma(volatility), D(dividend), type(PC), style(style) {}
 
 	template <typename ArgPack> OptionData(const ArgPack& args)
 	{
@@ -56,7 +58,7 @@ struct OptionData
 		sigma = args[OptionParams::volatility];
 		D = args[OptionParams::dividend];
 		type = args[OptionParams::optionType];
-		vanilla = args[OptionParams::vanilla];
+		style = args[OptionParams::style];
 	}
 
 	// SET FUNCTIONS
@@ -67,7 +69,7 @@ struct OptionData
 	void setVolatility(double sigma);
 	void setDividend(double D);
 	void setType(char type);
-	void setOptionType(bool van);
+	void setOptionType(int style);
 
 	// GET FUNCTIONS
 	double getInitialPrice();
@@ -77,7 +79,7 @@ struct OptionData
 	double getVolatility();
 	double getDividend();
 	char getType();
-	bool getOptionType();
+	int getOptionType();
 
 	// CALCULATIONS
 	double payoff(std::vector<double> path);

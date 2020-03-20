@@ -1,4 +1,5 @@
 #include "OptionData.hpp"
+#include <cmath>
 // TODO: COMMENT 
 
 // SET FUNCTIONS
@@ -9,7 +10,7 @@ void OptionData::setInterestRate(double r) {this->r = r;}
 void OptionData::setVolatility(double sigma) {this->sigma = sigma;}
 void OptionData::setDividend(double D) {this->D = D;}
 void OptionData::setType(char type) {this->type = type;}
-void OptionData::setOptionType(bool van) {this->vanilla = van;}
+void OptionData::setOptionType(int style) {this->style = style;}
 
 // GET FUNCTIONS
 double OptionData::getInitialPrice() {return this->S0;}
@@ -19,7 +20,7 @@ double OptionData::getInterestRate() {return this->r;}
 double OptionData::getVolatility() {return this->sigma;}
 double OptionData::getDividend() {return this->D;}
 char OptionData::getType() {return this->type;}
-bool OptionData::getOptionType() {return this->vanilla;}
+int OptionData::getOptionType() {return this->style;}
 
 // OSTREAM OVERLOAD
 std::ostream& operator<<(std::ostream& os, const OptionData& op)
@@ -31,12 +32,50 @@ std::ostream& operator<<(std::ostream& os, const OptionData& op)
 double OptionData::payoff(std::vector<double> path)
 { 
 	// Payoff function
-	double S, P;
-	if (vanilla) // European
+	// TODO: Barrier options
+	// - tuple, min, max, 0 by default
+	// - knock in, out, etc ...
+
+	double S, P, geo_sum;
+	if (style == 0)		// European
 		S = path.back();
-	else // Asian
-		S = std::accumulate(path.begin(), path.end(), 0) / static_cast<double>(path.size());
-	
+	else if(style == 1) // Asian
+	{
+		// Design choice: price Asian options using geometric average instead of arithmetic
+		// Reason: Ability to compare price with closed form solution in OptionCommand
+		
+		// Arithmatic average: 
+		// S = std::accumulate(path.begin(), path.end(), 0) / static_cast<double>(path.size());
+		geo_sum = path[0];
+		for (int i = 1; i < path.size(); i++)
+		{
+			geo_sum *= path[i];
+		}
+		S = pow(geo_sum, 1.0 / static_cast<double>(path.size()));
+	}
+	/* TODO: Add barrier option functionality
+		- Implement the four main types
+			- Up-and-out
+			- Down-and-out
+			- Up-and-in
+			- Down-and-in
+		- By defining a boolean type and using
+			auto it = max_element(std::begin(path), std::end(path)); // c++11
+			double max_price = *it;
+
+			and/or 
+
+			auto it = min_element(std::begin(cloud), std::end(cloud)); // c++11
+			double min_price = *it;
+
+	else if (style == 3) // Barrier
+	{
+		// ...
+	}
+
+		- The boolean should then be used in this if-loop to determine whether 
+		  or not the option has a payoff
+	*/
 	if (type == 'C' || type == 'c')	
 		P = std::max(S - this->K, 0.0); // CALL
 	else	

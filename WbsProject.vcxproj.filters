@@ -30,7 +30,7 @@
     <ClCompile Include="SDE.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BlackScholes.cpp">
+    <ClCompile Include="FairValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,10 +47,10 @@
     <ClInclude Include="SDE.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BlackScholes.hpp">
+    <ClInclude Include="OptionCommand.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OptionCommand.hpp">
+    <ClInclude Include="FairValue.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

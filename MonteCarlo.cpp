@@ -3,8 +3,13 @@
 #include <math.h>
 #include <tuple>
 #include <stdexcept>
+//------------------------------------------------------------------------------------------
+// TODO: Description and purpose of class
+// - 
+// - 
+//------------------------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------------------
+
 // Helper functions for normal cdf inverse from
 // https://www.johndcook.com/blog/cpp_phi_inverse/
 
@@ -39,7 +44,6 @@ double NormalCDFInverse(double p)
 		return RationalApproximation(sqrt(-2.0 * log(1 - p)));
 	}
 }
-// -----------------------------------------------------------------------------------------
 
 MonteCarlo::MonteCarlo(const MonteCarlo& MC)
 {
@@ -65,9 +69,9 @@ MonteCarlo::MonteCarlo(const MonteCarlo& MC)
 	this->option_price = MC.option_price;
 
 	// Create instance of the Black Scholes data structure
-	BlackScholes BS(MC.myOption.vanilla, MC.myOption.K, MC.myOption.r, MC.myOption.T, MC.myOption.D, 
+	FairValue FV(MC.myOption.vanilla, MC.myOption.K, MC.myOption.r, MC.myOption.T, MC.myOption.D, 
 		MC.myOption.sigma, MC.myOption.type, MC.Smin, MC.Smax, MC.dS);
-	this->bsOption = BS;
+	this->fairOption = FV;
 
 	// Start the Monte Carlo Process
 	generateData();
@@ -79,7 +83,7 @@ MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS
 	long NT, long M, double percentile, double dollarAccuracy, bool isExact)
 {
 	// Set the number of threads to use
-	omp_set_num_threads(8);	// Number of threads = 8
+	omp_set_num_threads(4);	// Number of threads = 4
 
 	// Copy values over
 	this->myOption = OD;
@@ -100,8 +104,8 @@ MonteCarlo::MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS
 	this->option_price = 0.0;
 
 	// Create instance of the Black Scholes data structure
-	BlackScholes BS(OD.vanilla, OD.K, OD.r, OD.T, OD.D, OD.sigma, OD.type, Smin, Smax, dS);
-	this->bsOption = BS;
+	FairValue FV(OD.vanilla, OD.K, OD.r, OD.T, OD.D, OD.sigma, OD.type, Smin, Smax, dS);
+	this->fairOption = FV;
 
 	// Start the Monte Carlo Process
 	generateData();
@@ -164,7 +168,6 @@ void MonteCarlo::generatePaths(double S)
 
 	// Store M as a double to avoid problem when dividing later
 	double M = static_cast<double>(this->M);
-	double dx;
 	double v = this->myOption.r - this->myOption.D - 0.5 * this->myOption.sigma * this->myOption.sigma;
 
 	// Loop through the number of simulations 
@@ -313,15 +316,17 @@ void MonteCarlo::storeData()
 	// Write the maps (prices, deltas, gammas) to text file to plot data in Python
 	if (this->isExact)
 	{
-		this->bsOption.writeToFile(this->prices, "MC_exact_prices.txt");
-		this->bsOption.writeToFile(this->deltas, "MC_exact_deltas.txt");
-		this->bsOption.writeToFile(this->gammas, "MC_exact_gammas.txt");
+		this->fairOption.writeToFile(this->prices, "MC_exact_prices.txt");
+		this->fairOption.writeToFile(this->deltas, "MC_exact_deltas.txt");
+		this->fairOption.writeToFile(this->gammas, "MC_exact_gammas.txt");
+		this->fairOption.writeToFile(this->stddev, "MC_exact_stddev.txt");
 	}
 	else
 	{
-		this->bsOption.writeToFile(this->prices, "MC_prices.txt");
-		this->bsOption.writeToFile(this->deltas, "MC_deltas.txt");
-		this->bsOption.writeToFile(this->gammas, "MC_gammas.txt");
+		this->fairOption.writeToFile(this->prices, "MC_prices.txt");
+		this->fairOption.writeToFile(this->deltas, "MC_deltas.txt");
+		this->fairOption.writeToFile(this->gammas, "MC_gammas.txt");
+		this->fairOption.writeToFile(this->stddev, "MC_stddev.txt");
 	}
 }
 
@@ -374,6 +379,7 @@ void MonteCarlo::calculatePrice()
 	double payoffT;
 	double sumPriceT = 0.0;
 	double squaredPayoffT = 0.0;
+	
 
 	// Convert number of simulations to double for division later on
 	double MC = static_cast<double>(this->M);
@@ -400,7 +406,7 @@ double MonteCarlo::maxPricingError()
 	double tempError;
 
 	// Getting the Black Scholes prices from OptionData
-	std::map<double, double> bsPrices = this->bsOption.getPriceMap();
+	std::map<double, double> bsPrices = this->fairOption.getPriceMap();
 
 	// Looping through the range of prices
 	for (double s = this->Smin; s < this->Smax; s += this->dS)

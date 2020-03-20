@@ -16,8 +16,8 @@ private:
 	std::chrono::system_clock::time_point start;
 	std::chrono::system_clock::time_point end;
 
-	bool isStart;//true:if start records the starting time of the operation;otherwise, false;
-	bool isEnd; //true if end records the ending time of the operation; otherwise,false;
+	bool isStart; // true:if start records the starting time of the operation;otherwise, false;
+	bool isEnd;   // true if end records the ending time of the operation; otherwise,false;
 
 public:
 	StopWatch() :isStart(false), isEnd(false) {}

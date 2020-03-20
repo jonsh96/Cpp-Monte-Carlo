@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BlackScholes.cpp" />
+    <ClCompile Include="FairValue.cpp" />
     <ClCompile Include="MonteCarlo.cpp" />
     <ClCompile Include="OptionData.cpp" />
     <ClCompile Include="SDE.cpp" />
@@ -135,7 +135,7 @@
     <ClCompile Include="Stopwatch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlackScholes.hpp" />
+    <ClInclude Include="FairValue.hpp" />
     <ClInclude Include="MonteCarlo.hpp" />
     <ClInclude Include="OptionCommand.hpp" />
     <ClInclude Include="OptionData.hpp" />

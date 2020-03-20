@@ -6,7 +6,7 @@
 #include "OptionData.hpp"
 #include "StopWatch.cpp"
 #include "SDE.hpp"
-#include "BlackScholes.hpp"
+#include "FairValue.hpp"
 #include <vector>
 #include <random>
 #include <memory>
@@ -33,7 +33,7 @@ private:
 	bool isExact; 
 
 	OptionData myOption;
-	BlackScholes bsOption;
+	FairValue fairOption;
 	std::vector<std::vector<double>> dW;
 	std::vector<std::vector<double>> paths_plus;
 	std::vector<std::vector<double>> paths_minus;
@@ -81,7 +81,7 @@ public:
 
 //	OptionData getOptionData();
 	// TODO: FINISH ALL GET FUNCTIONS
-	std::vector<std::vector<double>> getPaths();
+	// std::vector<std::vector<double>> getPaths();
 
 	// CALCULATIONS
 	void calculatePrice();
