@@ -33,6 +33,9 @@
     <ClCompile Include="FairValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataProcessing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stopwatch.hpp">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FairValue.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataProcessing.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

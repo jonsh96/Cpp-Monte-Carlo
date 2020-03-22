@@ -1,5 +1,3 @@
-#pragma once 
-
 #ifndef MONTE_CARLO_HPP
 #define MONTE_CARLO_HPP
 
@@ -15,53 +13,43 @@
 #include <fstream>
 #include <stdio.h>
 #include <Windows.h>
-#include "omp.h"
 #include <algorithm>
 
-// Helper functions
 double RationalApproximation(double t);
 double NormalCDFInverse(double p);
 
 class MonteCarlo
 {
 private:
-	double S0, SD, SE;
-	double Smin, Smax, dS;
+	double S0, SD, SE, Smin, Smax, dS, option_price, time_elapsed, accuracy, alpha;
 	long NT, M;
-	double option_price, timeElapsed;
-	double dollarAccuracy, percentile;
-	bool isExact; 
+	int SDE_type, style; // 0 for Euler, 1 for exact simulation 
 
 	OptionData myOption;
 	FairValue fairOption;
-	std::vector<std::vector<double>> dW;
-	std::vector<std::vector<double>> paths_plus;
-	std::vector<std::vector<double>> paths_minus;
-
-	std::map<double, double> stddev;	// Stock price, standard deviation
-	std::map<double, double> stderror;	// Stock price, standard error
-	std::map<double, double> prices;	// Stock price, option price
-	std::map<double, double> deltas;	// Stock price, option delta
-	std::map<double, double> gammas;	// Stock price, option gamma
+	std::vector<std::vector<double>> dW, paths_plus, paths_minus;
+	std::map<double, double> stddev, stderror, prices, deltas, gammas;
 
 public:
-	//TODO: MORE CONSTRUCTORS AND DESTRUCTORS
+	// Constructor and destructors
+	MonteCarlo(const MonteCarlo& MC) : S0(MC.S0), SD(MC.SE), SE(MC.SE), Smin(MC.Smin), Smax(MC.Smax),
+		dS(MC.dS), option_price(MC.option_price), time_elapsed(MC.time_elapsed), accuracy(MC.accuracy),
+		alpha(MC.alpha), NT(MC.NT), M(MC.M), SDE_type(MC.SDE_type), style(MC.style), myOption(MC.myOption), 
+		fairOption(MC.fairOption), dW(MC.dW), paths_plus(MC.paths_plus), paths_minus(MC.paths_minus), 
+		stddev(MC.stddev), stderror(MC.stderror), prices(MC.prices), deltas(MC.deltas), gammas(MC.gammas)
+	{
+		// Create instance of the Black Scholes data structure
+		FairValue FV(MC.myOption.style, MC.myOption.K, MC.myOption.r, MC.myOption.T, MC.myOption.D,
+			MC.myOption.sigma, MC.myOption.type, MC.Smin, MC.Smax, MC.dS);
+		this->fairOption = FV;
+	}
 
-	// CONSTRUCTORS AND DESTRUCTORS
-	MonteCarlo(const MonteCarlo& MC);
-	MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS,
-		long NT, long M, double percentile, double dollarAccuracy, bool isExact);
+	MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS, long NT, long M, 
+		double alpha, double accuracy, int SDE_type, int style) : myOption(OD), S0(0.0), SD(0.0), SE(0.0), 
+		Smin(Smin), Smax(Smax), dS(dS), option_price(0.0), time_elapsed(0.0), NT(NT), M(M), alpha(alpha), 
+		accuracy(accuracy), SDE_type(SDE_type), style(style) {}
 
-	//TODO: GENERATE (MORE?) GREEKS
-	void generateData();
-	void generateWienerProcesses();
-	void generatePaths(double S);
-	void generatePrices(double Smin, double Smax, double dS);
-	void generateDeltas();
-	void generateGammas();
-	void storeData();
-
-	// SET FUNCTIONS
+	// Set functions
 	void setInitialPrice(double S);
 	void setMinimumPrice(double Smin);
 	void setMaximumPrice(double Smax);
@@ -69,48 +57,42 @@ public:
 	void setNumberOfSteps(long NT);
 	void setNumberOfSimulations(long M);
 	void setOptionData(const OptionData& op);
-	void setPaths(const std::vector<std::vector<double>>& mat);
-
-	// GET FUNCTIONS
+	
+	// Get functions
 	double getOptionPrice();
 	double getInitialPrice();
 	double getStandardError();
 	double getStandardDeviation();
+	double getTimeElapsed();
 	long getNumberOfTimeSteps();
 	long getNumberOfSimulations();
+	int getSDEtype();
+	FairValue getFairOption();
+	std::map<double, double> getStdDev();	// Stock price, standard deviation
+	std::map<double, double> getStdErr();	// Stock price, standard error
+	std::map<double, double> getPrices();	// Stock price, option price
+	std::map<double, double> getDeltas();	// Stock price, option delta
+	std::map<double, double> getGammas();	// Stock price, option gamma
 
-//	OptionData getOptionData();
-	// TODO: FINISH ALL GET FUNCTIONS
-	// std::vector<std::vector<double>> getPaths();
+	// Main functions
+	void run();
+	void rerun();
+	void generateWienerProcesses();
+	void generatePaths(double S);
+	void generatePrices(double Smin, double Smax, double dS);
+	void generateDeltas();
+	void generateGammas();
 
-	// CALCULATIONS
+	// Calculation functions
 	void calculatePrice();
-
-	// STATISTICS
 	double maxPricingError();
 	double maxStandardError();
 	double maxStandardDeviation();
 	long minSimulationsNeeded();
-	//long simulationsNeeded(double alpha);
-	//double pricingError();
 
-	// DATA VISUALISATION
-	// TODO: MAKE MAIN MORE USABLE
-	// TODO: MAKE SAVE2TEXT/PLOTTING PROCESS MORE EFFICIENT AND REMOVE IT WHEN ITS NOT NEEDED
-	void saveTitle();
-	void printPathsToText();
-	void plotPaths();
-	void plotPrices();
-	void plotDeltas();
-	void plotGammas();
-//	void plotThetas();
-//	void plotVegas();	
-//	void plotRhos();
-//	void plotGreeks();
-
-	friend std::ostream& operator<< (std::ostream& os, const MonteCarlo& MC);
-	void refresh();
+	// Print functions
 	void printSummary();
+	friend std::ostream& operator<< (std::ostream& os, const MonteCarlo& MC);
 };
 
 #endif MONTE_CARLO_HPP

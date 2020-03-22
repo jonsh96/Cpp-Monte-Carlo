@@ -1,5 +1,6 @@
 #include "SDE.hpp"
 
+//TODO: Add more SDEs and extend to Monte Carlo
 double SDE::drift(double t, double S)
 { 
 	// Drift term	

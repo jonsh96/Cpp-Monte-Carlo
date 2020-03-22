@@ -85,16 +85,207 @@ public:
 	}
 };
 
-// -------------------------------------------------------------
-// Closed form solutions for Asian option prices, deltas, gammas
-// -------------------------------------------------------------
-class AsianCallPrice final : public OptionCommand
+// ------------------------------------------------------------------------
+// Closed form solutions for arithmetic Asian option prices, deltas, gammas
+// ------------------------------------------------------------------------
+// Formulas taken from Haug - The Complete Guide to Option Pricing 2007
+// Results are not very accurate 
+
+class ArithmeticAsianCallPrice final : public OptionCommand
 {
 public:
-	explicit AsianCallPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+	explicit ArithmeticAsianCallPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual ~AsianCallPrice() {};
+	virtual ~ArithmeticAsianCallPrice() {};
+
+	virtual double execute(double S) override
+	{
+		double M1, M2;
+		if (b != 0.0)
+		{
+			M1 = (std::exp(b * T) - 1.0) / (b * T);
+			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
+			M2 += (2.0 / (b * T)) * (1.0 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
+		}
+		else
+		{
+			M1 = 1.0;
+			M2 = 2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T);
+			M2 /= (sig * sig * sig * sig * T * T);
+//				(2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
+		}
+		double b_a = static_cast<double>(log(M1) / T);
+		double sig_a = std::sqrt(log(M2) / T - 2.0 * b_a);
+		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / static_cast<double>(sig_a * sqrt(T));
+		double d2 = d1 - sig_a * sqrt(T);
+		return S * std::exp((b_a-r)* T) * N(d1) - K * std::exp(-r * T) * N(d2);
+	}
+};
+
+class ArithmeticAsianPutPrice final : public OptionCommand
+{
+public:
+	explicit ArithmeticAsianPutPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~ArithmeticAsianPutPrice() {};
+
+	virtual double execute(double S) override
+	{
+		double M1, M2;
+		if (b != 0)
+		{
+			M1 = (std::exp(b * T) - 1.0) / (b * T);
+			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
+			M2 += (2.0 / (b * T)) * (1.0 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
+		}
+		else
+		{
+			M1 = 1.0;
+			M2 = (2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
+		}
+		double b_a = log(M1) / T;
+		double sig_a = std::sqrt(log(M2) / T - 2.0 * b_a);
+		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / (sig_a * sqrt(T));
+		double d2 = d1 - sig_a * sqrt(T);
+		return K * std::exp(-r * T) * N(-d2) - S * std::exp((b_a - r)* T) * N(-d1);
+	}
+};
+
+class ArithmeticAsianCallDelta final : public OptionCommand
+{
+public:
+	explicit ArithmeticAsianCallDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~ArithmeticAsianCallDelta() {};
+
+	virtual double execute(double S)  override
+	{
+		double M1, M2;
+		if (b != 0)
+		{
+			M1 = (std::exp(b * T) - 1.0) / (b * T);
+			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
+			M2 += (2.0 / (b * T)) * (1.0 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
+		}
+		else
+		{
+			M1 = 1.0;
+			M2 = (2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
+		}
+		double b_a = log(M1) / T;
+		double sig_a = std::sqrt(log(M2) / T - 2.0 * b_a);
+		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / (sig_a * sqrt(T));
+		double d2 = d1 - sig_a * sqrt(T);
+
+		return std::exp((b_a - r) * T) * N(d1);
+	}
+};
+
+class ArithmeticAsianPutDelta final : public OptionCommand
+{
+public:
+	explicit ArithmeticAsianPutDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~ArithmeticAsianPutDelta() {};
+
+	virtual double execute(double S) override
+	{
+		double M1, M2;
+		if (b != 0.0)
+		{
+			M1 = (std::exp(b * T) - 1.0) / (b * T);
+			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
+			M2 += (2.0 / (b * T)) * (1.0 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
+		}
+		else
+		{
+			M1 = 1.0;
+			M2 = (2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
+		}
+		double b_a = log(M1) / T;
+		double sig_a = std::sqrt(log(M2) / T - 2.0 * b_a);
+		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / (sig_a * sqrt(T));
+		double d2 = d1 - sig_a * sqrt(T);
+
+		return std::exp(b_a * T) * (N(d1) - 1);
+	}
+};
+
+
+class ArithmeticAsianCallGamma final : public OptionCommand
+{
+public:
+	explicit ArithmeticAsianCallGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~ArithmeticAsianCallGamma() {};
+
+	virtual double execute(double S) override
+	{
+		double M1, M2;
+		if (b != 0)
+		{
+			M1 = (std::exp(b * T) - 1.0) / (b * T);
+			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
+			M2 += (2.0 / (b * T)) * (1.0 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
+		}
+		else
+		{
+			M1 = 1.0;
+			M2 = (2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
+		}
+		double b_a = log(M1) / T;
+		double sig_a = std::sqrt(log(M2) / T - 2.0 * b_a);
+		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / (sig_a * sqrt(T));
+		double d2 = d1 - sig_a * sqrt(T);
+		return n(d1) * std::exp((b_a - r) * T) / static_cast<double>(S * sig_a * sqrt(T));
+	}
+};
+
+class ArithmeticAsianPutGamma final : public OptionCommand
+{
+public:
+	explicit ArithmeticAsianPutGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~ArithmeticAsianPutGamma() {};
+
+	virtual double execute(double S) override
+	{
+		double M1, M2;
+		if (b != 0)
+		{
+			M1 = (std::exp(b * T) - 1.0) / (b * T);
+			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
+			M2 += (2.0 / (b * T)) * (1.0 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
+		}
+		else
+		{
+			M1 = 1.0;
+			M2 = (2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
+		}
+		double b_a = log(M1) / T;
+		double sig_a = std::sqrt(log(M2) / T - 2.0 * b_a);
+		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / (sig_a * sqrt(T));
+		double d2 = d1 - sig_a * sqrt(T);
+
+		return n(d1) * std::exp((b_a-r) * T) / (S * sig_a * sqrt(T));
+	}
+};
+// ------------------------------------------------------------------------
+// Closed form solutions for geometric Asian option prices, deltas, gammas
+// ------------------------------------------------------------------------
+class GeometricAsianCallPrice final : public OptionCommand
+{
+public:
+	explicit GeometricAsianCallPrice (double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
+
+	virtual ~GeometricAsianCallPrice() {};
 
 	virtual double execute(double S) override
 	{
@@ -106,13 +297,13 @@ public:
 	}
 };
 
-class AsianPutPrice final : public OptionCommand
+class GeometricAsianPutPrice final : public OptionCommand
 {
 public:
-	explicit AsianPutPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+	explicit GeometricAsianPutPrice(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual ~AsianPutPrice() {};
+	virtual ~GeometricAsianPutPrice() {};
 
 	virtual double execute(double S) override
 	{
@@ -125,13 +316,13 @@ public:
 	}
 };
 
-class AsianCallDelta final : public OptionCommand
+class GeometricAsianCallDelta final : public OptionCommand
 {
 public:
-	explicit AsianCallDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+	explicit GeometricAsianCallDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual ~AsianCallDelta() {};
+	virtual ~GeometricAsianCallDelta() {};
 
 	virtual double execute(double S)  override
 	{
@@ -143,13 +334,13 @@ public:
 	}
 };
 
-class AsianPutDelta final : public OptionCommand
+class GeometricAsianPutDelta final : public OptionCommand
 {
 public:
-	explicit AsianPutDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+	explicit GeometricAsianPutDelta(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual ~AsianPutDelta() {};
+	virtual ~GeometricAsianPutDelta() {};
 
 	virtual double execute(double S) override
 	{
@@ -163,13 +354,13 @@ public:
 };
 
 
-class AsianCallGamma final : public OptionCommand
+class GeometricAsianCallGamma final : public OptionCommand
 {
 public:
-	explicit AsianCallGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+	explicit GeometricAsianCallGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual ~AsianCallGamma() {};
+	virtual ~GeometricAsianCallGamma() {};
 
 	virtual double execute(double S) override
 	{
@@ -181,13 +372,13 @@ public:
 	}
 };
 
-class AsianPutGamma final : public OptionCommand
+class GeometricAsianPutGamma final : public OptionCommand
 {
 public:
-	explicit AsianPutGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
+	explicit GeometricAsianPutGamma(double strike, double expiration, double riskFree, double costOfCarry, double volatility)
 		: OptionCommand(strike, expiration, riskFree, costOfCarry, volatility) {}
 
-	virtual ~AsianPutGamma() {};
+	virtual ~GeometricAsianPutGamma() {};
 
 	virtual double execute(double S) override
 	{

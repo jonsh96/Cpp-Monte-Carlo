@@ -1,4 +1,3 @@
-// TODO: Change name?
 #ifndef FAIR_VALUE_HPP
 #define FAIR_VALUE_HPP
 
@@ -12,71 +11,138 @@
 class FairValue
 {
 private:
-	double K, r, T, D, sigma;
-	double Smin, Smax, dS;
+	// Option parameters
+	double K, r, T, D, sigma, Smin, Smax, dS;
 	char type; 
-	// TODO: Change vanilla to char
-	bool vanilla;
-	OptionCommand *price;
-	OptionCommand *delta;
-	OptionCommand *gamma;
-	OptionCommand *theta;
-	OptionCommand *vega;
-	OptionCommand *rho;
+	int style; 
+	
+	// Option command instances to get fair price
+	OptionCommand *price, *delta, *gamma;
 
-	// TODO: comment
-	std::map<double, double> prices;	// Stock price, standard deviation
-	std::map<double, double> deltas;	// Stock price, standard error
-	std::map<double, double> gammas;	// Stock price, option price
-	std::map<double, double> thetas;	// Stock price, option delta
-	std::map<double, double> vegas;		// Stock price, option gamma
-	std::map<double, double> rhos;		// Stock price, option gamma
-
+	// Map with stock price as a key and the price/delta/gamma as value
+	std::map<double, double> priceMap, deltaMap, gammaMap;
 
 public:
-	// CONSTRUCTORS AND DESTRUCTORS
-	FairValue() : vanilla(true), K(0.0), r(0.0), T(0.0), D(0.0), sigma(0.0), type('C'), Smin(0.0), Smax(0.0), dS(0.0){};
-	FairValue(const FairValue& bs);
-	FairValue(bool vanilla, double K, double r, double T, double D, double sigma, char type, double Smin, double Smax, double dS);
-	~FairValue();
+	// Constructors and destructors
+	FairValue() : style(0), K(0.0), r(0.0), T(0.0), D(0.0), 
+		sigma(0.0), type('C'), Smin(0.0), Smax(0.0), dS(0.0)
+	{	// Assigning price, delta, gamma pointers
+		this->price = new CallPrice(K, T, r, D, sigma);
+		this->delta = new CallDelta(K, T, r, D, sigma);
+		this->gamma = new CallGamma(K, T, r, D, sigma);
+	}
+	FairValue(const FairValue& fv) : K(fv.K), r(fv.r), T(fv.T), D(fv.D), sigma(fv.sigma), 
+		Smin(fv.Smin), Smax(fv.Smax), dS(fv.dS), type(fv.type), style(fv.style) 
+	{	// Assigning price, delta, gamma pointers	
+		if (type == 'C')
+		{
+			if (this->style == 0)
+			{
+				this->price = new CallPrice(K, T, r, D, sigma);
+				this->delta = new CallDelta(K, T, r, D, sigma);
+				this->gamma = new CallGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 1)
+			{
+				this->price = new ArithmeticAsianCallPrice(K, T, r, D, sigma);
+				this->delta = new ArithmeticAsianCallDelta(K, T, r, D, sigma);
+				this->gamma = new ArithmeticAsianCallGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 2)
+			{
+				this->price = new GeometricAsianCallPrice(K, T, r, D, sigma);
+				this->delta = new GeometricAsianCallDelta(K, T, r, D, sigma);
+				this->gamma = new GeometricAsianCallGamma(K, T, r, D, sigma);
+			}
+		}
+		else
+		{
+			if (this->style == 0)
+			{
+				this->price = new PutPrice(K, T, r, D, sigma);
+				this->delta = new PutDelta(K, T, r, D, sigma);
+				this->gamma = new PutGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 1)
+			{
+				this->price = new ArithmeticAsianPutPrice(K, T, r, D, sigma);
+				this->delta = new ArithmeticAsianPutDelta(K, T, r, D, sigma);
+				this->gamma = new ArithmeticAsianPutGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 2)
+			{
+				this->price = new GeometricAsianPutPrice(K, T, r, D, sigma);
+				this->delta = new GeometricAsianPutDelta(K, T, r, D, sigma);
+				this->gamma = new GeometricAsianPutGamma(K, T, r, D, sigma);
+			}
+		}
+		generateData(Smin, Smax, dS);
+	}
+	FairValue(int style, double K, double r, double T, double D, 
+		double sigma, char type, double Smin, double Smax, double dS) :
+		style(style), K(K), r(r), T(T), D(D), sigma(sigma), type(type),
+		Smin(Smin), Smax(Smax), dS(dS)
+	{	// Assigning price, delta, gamma pointers	
+		if (type == 'C')
+		{
+			if (this->style == 0)
+			{
+				this->price = new CallPrice(K, T, r, D, sigma);
+				this->delta = new CallDelta(K, T, r, D, sigma);
+				this->gamma = new CallGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 1)
+			{
+				this->price = new ArithmeticAsianCallPrice(K, T, r, D, sigma);
+				this->delta = new ArithmeticAsianCallDelta(K, T, r, D, sigma);
+				this->gamma = new ArithmeticAsianCallGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 2)
+			{
+				this->price = new GeometricAsianCallPrice(K, T, r, D, sigma);
+				this->delta = new GeometricAsianCallDelta(K, T, r, D, sigma);
+				this->gamma = new GeometricAsianCallGamma(K, T, r, D, sigma);
+			}
+		}
+		else
+		{
+			if (this->style == 0)
+			{
+				this->price = new PutPrice(K, T, r, D, sigma);
+				this->delta = new PutDelta(K, T, r, D, sigma);
+				this->gamma = new PutGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 1)
+			{
+				this->price = new ArithmeticAsianPutPrice(K, T, r, D, sigma);
+				this->delta = new ArithmeticAsianPutDelta(K, T, r, D, sigma);
+				this->gamma = new ArithmeticAsianPutGamma(K, T, r, D, sigma);
+			}
+			else if (this->style == 2)
+			{
+				this->price = new GeometricAsianPutPrice(K, T, r, D, sigma);
+				this->delta = new GeometricAsianPutDelta(K, T, r, D, sigma);
+				this->gamma = new GeometricAsianPutGamma(K, T, r, D, sigma);
+			}
+		}
 
-	// GET FUNCTIONS 
+		generateData(Smin, Smax, dS);
+	}
+	~FairValue(){}
+
+	// Get functions
 	double getPrice(double S);
 	double getDelta(double S);
 	double getGamma(double S);
-	double getTheta(double S);
-	double getVega(double S);
-	double getRho(double S);
-
 	std::map<double, double> getPriceMap();
 	std::map<double, double> getDeltaMap();
 	std::map<double, double> getGammaMap();
-	std::map<double, double> getThetaMap();
-	std::map<double, double> getVegaMap();
-	std::map<double, double> getRhoMap();
 
-	// GENERATE FUNCTIONS
+	// Calculations
 	void generateData(double Smin, double Smax, double dS);
 	std::map<double, double> generatePrices(double Smin, double Smax, double dS);
 	std::map<double, double> generateDeltas(double Smin, double Smax, double dS);
 	std::map<double, double> generateGammas(double Smin, double Smax, double dS);
-	std::map<double, double> generateThetas(double Smin, double Smax, double dS);
-	std::map<double, double> generateVegas(double Smin, double Smax, double dS);
-	std::map<double, double> generateRhos(double Smin, double Smax, double dS);
-
-	void storeData();
-	
-	// DATA PROCESSING
-	void writeToFile(std::map<double, double> myMap, std::string filename);
-
-	// PLOT FUNCTIONS
-/*	void plotPrices();
-	void plotDeltas();
-	void plotGammas();
-	void plotThetas();
-	void plotVegas();	
-	void plotRhos();
-	void plotGreeks();*/
 };
 
 #endif // ! FAIR_VALUE_HPP

@@ -4,7 +4,6 @@
 //
 // (C) Datasim Education BV 2008-2016
 
-// TODO: GO OVER + COMMENT + ADD FUNCTIONS IF NEEDED
 #ifndef OptionData_HPP
 #define OptionData_HPP
 
@@ -24,7 +23,7 @@ namespace OptionParams
 	BOOST_PARAMETER_KEYWORD(Tag, volatility)
 	BOOST_PARAMETER_KEYWORD(Tag, dividend)
 	BOOST_PARAMETER_KEYWORD(Tag, optionType)
-	BOOST_PARAMETER_KEYWORD(Tag, vanilla)
+	BOOST_PARAMETER_KEYWORD(Tag, style)
 }
 
 // Encapsulate all data in one place
@@ -81,10 +80,10 @@ struct OptionData
 	char getType();
 	int getOptionType();
 
-	// CALCULATIONS
+	// Payoff calculations
 	double payoff(std::vector<double> path);
 
-	// OPERATORS
+	// Operator overloads
 	friend std::ostream & operator<<(std::ostream& os, const OptionData& op);
 };
 

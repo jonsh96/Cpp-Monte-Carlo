@@ -5,8 +5,6 @@
 #include <cmath>
 #include <iostream>
 
-// TODO: COMMENT + POSSIBLY ADD SET/GET FUNCTIONS
-
 class SDE
 { // Defines drift + diffusion + data
 private:

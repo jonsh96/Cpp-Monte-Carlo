@@ -119,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\local\boost_1_72_0_b1_rc2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataProcessing.cpp" />
     <ClCompile Include="FairValue.cpp" />
     <ClCompile Include="MonteCarlo.cpp" />
     <ClCompile Include="OptionData.cpp" />
@@ -135,6 +137,7 @@
     <ClCompile Include="Stopwatch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataProcessing.hpp" />
     <ClInclude Include="FairValue.hpp" />
     <ClInclude Include="MonteCarlo.hpp" />
     <ClInclude Include="OptionCommand.hpp" />
