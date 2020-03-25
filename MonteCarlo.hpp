@@ -4,6 +4,8 @@
 #include "OptionData.hpp"
 #include "StopWatch.cpp"
 #include "SDE.hpp"
+#include "RNG.hpp"
+#include "FDM.hpp"
 #include "FairValue.hpp"
 #include <vector>
 #include <random>
@@ -24,7 +26,6 @@ private:
 	double S0, SD, SE, Smin, Smax, dS, option_price, time_elapsed, accuracy, alpha;
 	long NT, M;
 	int SDE_type, style; // 0 for Euler, 1 for exact simulation 
-
 	OptionData myOption;
 	FairValue fairOption;
 	std::vector<std::vector<double>> dW, paths_plus, paths_minus;
@@ -39,8 +40,7 @@ public:
 		stddev(MC.stddev), stderror(MC.stderror), prices(MC.prices), deltas(MC.deltas), gammas(MC.gammas)
 	{
 		// Create instance of the Black Scholes data structure
-		FairValue FV(MC.myOption.style, MC.myOption.K, MC.myOption.r, MC.myOption.T, MC.myOption.D,
-			MC.myOption.sigma, MC.myOption.type, MC.Smin, MC.Smax, MC.dS);
+		FairValue FV(MC.myOption, MC.Smin, MC.Smax, MC.dS);
 		this->fairOption = FV;
 	}
 
@@ -67,6 +67,7 @@ public:
 	long getNumberOfTimeSteps();
 	long getNumberOfSimulations();
 	int getSDEtype();
+	char getOptionType();
 	FairValue getFairOption();
 	std::map<double, double> getStdDev();	// Stock price, standard deviation
 	std::map<double, double> getStdErr();	// Stock price, standard error
@@ -77,11 +78,12 @@ public:
 	// Main functions
 	void run();
 	void rerun();
-	void generateWienerProcesses();
+
+	// Generate functions
 	void generatePaths(double S);
 	void generatePrices(double Smin, double Smax, double dS);
-	void generateDeltas();
-	void generateGammas();
+	//void generateDeltas();
+	//void generateGammas();
 
 	// Calculation functions
 	void calculatePrice();
@@ -91,7 +93,7 @@ public:
 	long minSimulationsNeeded();
 
 	// Print functions
-	void printSummary();
+	// void printSummary();
 	friend std::ostream& operator<< (std::ostream& os, const MonteCarlo& MC);
 };
 

@@ -33,10 +33,9 @@ struct OptionData
 	double S0, K, T, r, sigma, D;
 	char type;		// type == 'C' if call, type == 'P' if put
 	int style;		// style == 0 if European, style == 1 if Asian
-					// TODO: add style == 3, if Barrier, style == 4 if Binary, etc 
-	
+					
 	// Default constructor
-	explicit constexpr OptionData() : S0(0.0), K(0.0), T(0.0), r(0.0), 
+	OptionData() : S0(0.0), K(0.0), T(0.0), r(0.0), 
 		sigma(0.0), D(0.0), type('C'), style(0) {}
 
 	// Copy constructor

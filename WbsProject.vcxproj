@@ -130,8 +130,10 @@
   <ItemGroup>
     <ClCompile Include="DataProcessing.cpp" />
     <ClCompile Include="FairValue.cpp" />
+    <ClCompile Include="FDM.cpp" />
     <ClCompile Include="MonteCarlo.cpp" />
     <ClCompile Include="OptionData.cpp" />
+    <ClCompile Include="RNG.cpp" />
     <ClCompile Include="SDE.cpp" />
     <ClCompile Include="TestMC.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
@@ -139,9 +141,11 @@
   <ItemGroup>
     <ClInclude Include="DataProcessing.hpp" />
     <ClInclude Include="FairValue.hpp" />
+    <ClInclude Include="FDM.hpp" />
     <ClInclude Include="MonteCarlo.hpp" />
     <ClInclude Include="OptionCommand.hpp" />
     <ClInclude Include="OptionData.hpp" />
+    <ClInclude Include="RNG.hpp" />
     <ClInclude Include="SDE.hpp" />
     <ClInclude Include="Stopwatch.hpp" />
   </ItemGroup>

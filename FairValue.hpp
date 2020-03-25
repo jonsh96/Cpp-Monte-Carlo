@@ -2,6 +2,7 @@
 #define FAIR_VALUE_HPP
 
 #include "OptionCommand.hpp"
+#include "OptionData.hpp"
 #include <vector>
 #include <map>
 #include <string>
@@ -12,10 +13,9 @@ class FairValue
 {
 private:
 	// Option parameters
-	double K, r, T, D, sigma, Smin, Smax, dS;
-	char type; 
-	int style; 
-	
+	OptionData data;		// The data for the option
+	double Smin, Smax, dS;
+
 	// Option command instances to get fair price
 	OptionCommand *price, *delta, *gamma;
 
@@ -24,105 +24,101 @@ private:
 
 public:
 	// Constructors and destructors
-	FairValue() : style(0), K(0.0), r(0.0), T(0.0), D(0.0), 
-		sigma(0.0), type('C'), Smin(0.0), Smax(0.0), dS(0.0)
+	FairValue() : data(OptionData()), Smin(0.0), Smax(0.0), dS(0.0)
 	{	// Assigning price, delta, gamma pointers
-		this->price = new CallPrice(K, T, r, D, sigma);
-		this->delta = new CallDelta(K, T, r, D, sigma);
-		this->gamma = new CallGamma(K, T, r, D, sigma);
+		this->price = new CallPrice(this->data.K, this->data.T, this->data.r, this->data.D, this->data.sigma);
+		this->delta = new CallDelta(this->data.K, this->data.T, this->data.r, this->data.D, this->data.sigma);
+		this->gamma = new CallGamma(this->data.K, this->data.T, this->data.r, this->data.D, this->data.sigma);
 	}
-	FairValue(const FairValue& fv) : K(fv.K), r(fv.r), T(fv.T), D(fv.D), sigma(fv.sigma), 
-		Smin(fv.Smin), Smax(fv.Smax), dS(fv.dS), type(fv.type), style(fv.style) 
+	FairValue(const FairValue& fv) : data(fv.data), Smin(fv.Smin), Smax(fv.Smax), dS(fv.dS)
 	{	// Assigning price, delta, gamma pointers	
-		if (type == 'C')
+		if (fv.data.type == 'C')
 		{
-			if (this->style == 0)
+			if (fv.data.style == 0)
 			{
-				this->price = new CallPrice(K, T, r, D, sigma);
-				this->delta = new CallDelta(K, T, r, D, sigma);
-				this->gamma = new CallGamma(K, T, r, D, sigma);
+				this->price = new CallPrice(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->delta = new CallDelta(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->gamma = new CallGamma(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
 			}
-			else if (this->style == 1)
+			else if (fv.data.style == 1)
 			{
-				this->price = new ArithmeticAsianCallPrice(K, T, r, D, sigma);
-				this->delta = new ArithmeticAsianCallDelta(K, T, r, D, sigma);
-				this->gamma = new ArithmeticAsianCallGamma(K, T, r, D, sigma);
+				this->price = new ArithmeticAsianCallPrice(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->delta = new ArithmeticAsianCallDelta(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->gamma = new ArithmeticAsianCallGamma(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
 			}
-			else if (this->style == 2)
+			else if (fv.data.style == 2)
 			{
-				this->price = new GeometricAsianCallPrice(K, T, r, D, sigma);
-				this->delta = new GeometricAsianCallDelta(K, T, r, D, sigma);
-				this->gamma = new GeometricAsianCallGamma(K, T, r, D, sigma);
+				this->price = new GeometricAsianCallPrice(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->delta = new GeometricAsianCallDelta(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->gamma = new GeometricAsianCallGamma(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
 			}
 		}
 		else
 		{
-			if (this->style == 0)
+			if (fv.data.style == 0)
 			{
-				this->price = new PutPrice(K, T, r, D, sigma);
-				this->delta = new PutDelta(K, T, r, D, sigma);
-				this->gamma = new PutGamma(K, T, r, D, sigma);
+				this->price = new PutPrice(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->delta = new PutDelta(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->gamma = new PutGamma(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
 			}
-			else if (this->style == 1)
+			else if (fv.data.style == 1)
 			{
-				this->price = new ArithmeticAsianPutPrice(K, T, r, D, sigma);
-				this->delta = new ArithmeticAsianPutDelta(K, T, r, D, sigma);
-				this->gamma = new ArithmeticAsianPutGamma(K, T, r, D, sigma);
+				this->price = new ArithmeticAsianPutPrice(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->delta = new ArithmeticAsianPutDelta(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->gamma = new ArithmeticAsianPutGamma(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
 			}
-			else if (this->style == 2)
+			else if (fv.data.style == 2)
 			{
-				this->price = new GeometricAsianPutPrice(K, T, r, D, sigma);
-				this->delta = new GeometricAsianPutDelta(K, T, r, D, sigma);
-				this->gamma = new GeometricAsianPutGamma(K, T, r, D, sigma);
+				this->price = new GeometricAsianPutPrice(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->delta = new GeometricAsianPutDelta(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
+				this->gamma = new GeometricAsianPutGamma(fv.data.K, fv.data.T, fv.data.r, fv.data.D, fv.data.sigma);
 			}
 		}
 		generateData(Smin, Smax, dS);
 	}
-	FairValue(int style, double K, double r, double T, double D, 
-		double sigma, char type, double Smin, double Smax, double dS) :
-		style(style), K(K), r(r), T(T), D(D), sigma(sigma), type(type),
-		Smin(Smin), Smax(Smax), dS(dS)
-	{	// Assigning price, delta, gamma pointers	
-		if (type == 'C')
+	FairValue(const OptionData &op, double Smin, double Smax, double dS) :
+		data(op), Smin(Smin), Smax(Smax), dS(dS)
+	{	// Assigning price, delta, gamma pointers
+		if (this->data.type == 'C')
 		{
-			if (this->style == 0)
+			if (this->data.style == 0)
 			{
-				this->price = new CallPrice(K, T, r, D, sigma);
-				this->delta = new CallDelta(K, T, r, D, sigma);
-				this->gamma = new CallGamma(K, T, r, D, sigma);
+				this->price = new CallPrice(op.K, op.T, op.r, op.D, op.sigma);
+				this->delta = new CallDelta(op.K, op.T, op.r, op.D, op.sigma);
+				this->gamma = new CallGamma(op.K, op.T, op.r, op.D, op.sigma);
 			}
-			else if (this->style == 1)
+			else if (this->data.style == 1)
 			{
-				this->price = new ArithmeticAsianCallPrice(K, T, r, D, sigma);
-				this->delta = new ArithmeticAsianCallDelta(K, T, r, D, sigma);
-				this->gamma = new ArithmeticAsianCallGamma(K, T, r, D, sigma);
+				this->price = new ArithmeticAsianCallPrice(op.K, op.T, op.r, op.D, op.sigma);
+				this->delta = new ArithmeticAsianCallDelta(op.K, op.T, op.r, op.D, op.sigma);
+				this->gamma = new ArithmeticAsianCallGamma(op.K, op.T, op.r, op.D, op.sigma);
 			}
-			else if (this->style == 2)
+			else if (this->data.style == 2)
 			{
-				this->price = new GeometricAsianCallPrice(K, T, r, D, sigma);
-				this->delta = new GeometricAsianCallDelta(K, T, r, D, sigma);
-				this->gamma = new GeometricAsianCallGamma(K, T, r, D, sigma);
+				this->price = new GeometricAsianCallPrice(op.K, op.T, op.r, op.D, op.sigma);
+				this->delta = new GeometricAsianCallDelta(op.K, op.T, op.r, op.D, op.sigma);
+				this->gamma = new GeometricAsianCallGamma(op.K, op.T, op.r, op.D, op.sigma);
 			}
 		}
 		else
 		{
-			if (this->style == 0)
+			if (this->data.style == 0)
 			{
-				this->price = new PutPrice(K, T, r, D, sigma);
-				this->delta = new PutDelta(K, T, r, D, sigma);
-				this->gamma = new PutGamma(K, T, r, D, sigma);
+				this->price = new PutPrice(op.K, op.T, op.r, op.D, op.sigma);
+				this->delta = new PutDelta(op.K, op.T, op.r, op.D, op.sigma);
+				this->gamma = new PutGamma(op.K, op.T, op.r, op.D, op.sigma);
 			}
-			else if (this->style == 1)
+			else if (this->data.style == 1)
 			{
-				this->price = new ArithmeticAsianPutPrice(K, T, r, D, sigma);
-				this->delta = new ArithmeticAsianPutDelta(K, T, r, D, sigma);
-				this->gamma = new ArithmeticAsianPutGamma(K, T, r, D, sigma);
+				this->price = new ArithmeticAsianPutPrice(op.K, op.T, op.r, op.D, op.sigma);
+				this->delta = new ArithmeticAsianPutDelta(op.K, op.T, op.r, op.D, op.sigma);
+				this->gamma = new ArithmeticAsianPutGamma(op.K, op.T, op.r, op.D, op.sigma);
 			}
-			else if (this->style == 2)
+			else if (this->data.style == 2)
 			{
-				this->price = new GeometricAsianPutPrice(K, T, r, D, sigma);
-				this->delta = new GeometricAsianPutDelta(K, T, r, D, sigma);
-				this->gamma = new GeometricAsianPutGamma(K, T, r, D, sigma);
+				this->price = new GeometricAsianPutPrice(op.K, op.T, op.r, op.D, op.sigma);
+				this->delta = new GeometricAsianPutDelta(op.K, op.T, op.r, op.D, op.sigma);
+				this->gamma = new GeometricAsianPutGamma(op.K, op.T, op.r, op.D, op.sigma);
 			}
 		}
 

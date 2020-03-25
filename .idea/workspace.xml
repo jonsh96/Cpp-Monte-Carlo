@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d7b6596-291d-4937-9f64-275dfaa7c4a5" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairValue.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/FairValue.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairValue.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/FairValue.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_deltas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_deltas.txt" afterDir="false" />

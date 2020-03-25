@@ -25,6 +25,9 @@ public:
 	void plotPrices();
 	void plotDeltas();
 	void plotGammas();
+
+	// Print functions
+	void printSummary();
 };
 
 #endif // !DATA_PROCESSING_HPP
