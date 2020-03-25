@@ -41,7 +41,7 @@ public:
 	{
 		// Create instance of the Black Scholes data structure
 		FairValue FV(MC.myOption, MC.Smin, MC.Smax, MC.dS);
-		this->fairOption = FV;
+		this->fairOption = FV; 
 	}
 
 	MonteCarlo(const OptionData& OD, double Smin, double Smax, double dS, long NT, long M, 

@@ -33,7 +33,7 @@ int main()
 	M = 10;
 
 	// Store option data
-	OptionData OD(Smin, K, T, r, sigma, D, type, style);
+	OptionData OD(Smin, K, T, r, sigma, D, type, style); 
 	
 	// Create two instances of Monte Carlo, exact and Euler method
 	MonteCarlo MC_euler(OD, Smin, Smax, dS, NT, M, alpha, accuracy, 0, style);

@@ -21,7 +21,7 @@ void DataProcessing::saveTitle()
 	title_file << std::get<0>(this->MC); // Using overloaded << operator 
 	title_file.close();
 }
-
+ 
 void DataProcessing::storeData()
 {
 	// Fair value price, delta, gamma

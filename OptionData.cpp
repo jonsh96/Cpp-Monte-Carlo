@@ -10,7 +10,7 @@ void OptionData::setVolatility(double sigma) {this->sigma = sigma;}
 void OptionData::setDividend(double D) {this->D = D;}
 void OptionData::setType(char type) {this->type = type;}
 void OptionData::setOptionType(int style) {this->style = style;}
-
+ 
 // Get functions
 double OptionData::getInitialPrice() {return this->S0;}
 double OptionData::getStrike() {return this->K;}

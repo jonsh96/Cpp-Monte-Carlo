@@ -54,7 +54,7 @@ public:
 
 	// Want to forbid copy constructor and assignment operator
 	OptionCommand(const OptionCommand& c) = default;
-	OptionCommand& operator = (const OptionCommand& c) = default;
+	OptionCommand& operator = (const OptionCommand& c) = default; 
 
 	// The abstract interface
 	virtual double execute(double S) = 0;

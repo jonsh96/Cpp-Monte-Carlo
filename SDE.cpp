@@ -11,7 +11,7 @@ double SDE::drift(double t, double S)
 		return this->v;
 }
 
-double SDE::diffusion(double t, double S)
+double SDE::diffusion(double t, double S) 
 { 
 	// Diffusion term
 	return data->sigma * S;

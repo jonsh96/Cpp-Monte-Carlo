@@ -7,7 +7,7 @@
 #include <iostream>
 
 class SDE
-{ // Defines drift + diffusion + data
+{ // Defines drift + diffusion + data 
 private:
 	std::shared_ptr<OptionData> data;	// The data for the option
 	int SDE_type;

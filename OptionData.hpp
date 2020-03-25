@@ -27,7 +27,7 @@ namespace OptionParams
 }
 
 // Encapsulate all data in one place
-struct OptionData
+struct OptionData 
 { 
 	// Option data + behaviour
 	double S0, K, T, r, sigma, D;

@@ -11,7 +11,7 @@ std::map<double, double> FDM::FOCD() const
 
 	std::map<double, double> retMap;
 
-	// Loop through price map (not including boundary elements)
+	// Loop through price map (not including boundary elements) 
 	for (double s = min + dS; s < max - dS; s += dS)
 	{
 		prev = this->map_data.at(s - dS);

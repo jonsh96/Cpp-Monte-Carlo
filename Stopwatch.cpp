@@ -32,7 +32,7 @@ void StopWatch<TickType, UnitType>::Reset()
 template <typename TickType, typename UnitType>
 TickType StopWatch<TickType, UnitType>::GetTime()
 {
-	TickType count;
+	TickType count; 
 	if (isStart && isEnd)
 	{
 		// Seconds as unit type (default)

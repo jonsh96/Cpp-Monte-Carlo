@@ -10,7 +10,7 @@ std::vector<std::vector<double>> RNG::generateWienerProcesses(double dt)
 	std::normal_distribution<double> distribution(0, 1);
 
 	// Initialise matrix of Wiener paths
-	std::vector<std::vector<double>> temp_paths;
+	std::vector<std::vector<double>> temp_paths; 
 
 	double sqrdt = std::sqrt(dt);
 

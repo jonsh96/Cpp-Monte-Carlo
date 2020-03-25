@@ -37,7 +37,7 @@ std::map<double, double> MonteCarlo::getGammas() { return this->gammas; }
 // Main functions
 void MonteCarlo::run()
 {
-	// Generate the paths using path recycling (same Wiener process matrix for each price)
+	// Generate the paths using path recycling (same Wiener process matrix for each price) 
 	RNG randGen(this->NT, this->M);
 	double dt = this->myOption.T / static_cast<double>(this->NT);
 
