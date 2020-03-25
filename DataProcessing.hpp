@@ -7,7 +7,7 @@
 
 // Stores two Monte Carlo simulations and processes the data to plot
 class DataProcessing
-{
+{ 
 private:
 	std::tuple<MonteCarlo,MonteCarlo> MC;
 public:
@@ -25,6 +25,9 @@ public:
 	void plotPrices();
 	void plotDeltas();
 	void plotGammas();
+
+	// Print functions
+	void printSummary();
 };
 
 #endif // !DATA_PROCESSING_HPP

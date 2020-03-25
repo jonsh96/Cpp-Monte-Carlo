@@ -20,7 +20,7 @@ private:
 	bool isEnd;   // true if end records the ending time of the operation; otherwise,false;
 
 public:
-	StopWatch() :isStart(false), isEnd(false) {}
+	StopWatch() :isStart(false), isEnd(false) {} 
 	StopWatch(const StopWatch<TickType, UnitType>& src) = delete;
 	StopWatch<TickType, UnitType>& operator = (const StopWatch<TickType, UnitType>& src) = delete;
 

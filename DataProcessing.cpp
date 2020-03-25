@@ -21,7 +21,7 @@ void DataProcessing::saveTitle()
 	title_file << std::get<0>(this->MC); // Using overloaded << operator 
 	title_file.close();
 }
-
+ 
 void DataProcessing::storeData()
 {
 	// Fair value price, delta, gamma
@@ -88,4 +88,28 @@ void DataProcessing::plotGammas()
 	// Plot gammas using the system command to execute python file
 	std::string command = "plot_gamma.py";
 	system(command.c_str());
+}
+
+void DataProcessing::printSummary()
+{
+	MonteCarlo MC_euler = std::get<0>(MC);
+	MonteCarlo MC_exact = std::get<1>(MC);
+
+	std::cout << "----------------------------------";
+	std::cout << "\nSummary of Monte Carlo simulation:";
+	std::cout << "\n----------------------------------";
+	std::cout << "\nEuler method:";
+	std::cout << "\nMax pricing error:\t" << MC_euler.maxPricingError();
+	std::cout << "\nMax standard error:\t" << MC_euler.maxStandardError();
+	std::cout << "\nMax standard deviation:\t" << MC_euler.maxStandardDeviation();
+	std::cout << "\nMin simulations needed:\t" << MC_euler.minSimulationsNeeded();
+	std::cout << "\nTime elapsed:\t\t" << MC_euler.getTimeElapsed();
+	std::cout << "\n----------------------------------";
+	std::cout << "\nExact method:";
+	std::cout << "\nMax pricing error:\t" << MC_exact.maxPricingError();
+	std::cout << "\nMax standard error:\t" << MC_exact.maxStandardError();
+	std::cout << "\nMax standard deviation:\t" << MC_exact.maxStandardDeviation();
+	std::cout << "\nMin simulations needed:\t" << MC_exact.minSimulationsNeeded();
+	std::cout << "\nTime elapsed:\t\t" << MC_exact.getTimeElapsed();
+	std::cout << "\n----------------------------------\n";
 }

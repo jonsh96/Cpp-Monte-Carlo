@@ -9,7 +9,7 @@ std::map<double, double> FairValue::getDeltaMap() {return this->deltaMap;}
 std::map<double, double> FairValue::getGammaMap() {return this->gammaMap;}
 
 void FairValue::generateData(double Smin, double Smax, double dS)
-{
+{ 
 	// Generates price, delta and gamma maps
 	this->priceMap = generatePrices(Smin, Smax, dS);
 	this->deltaMap = generateDeltas(Smin, Smax, dS);
