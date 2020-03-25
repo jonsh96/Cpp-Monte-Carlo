@@ -86,4 +86,4 @@ struct OptionData
 	friend std::ostream & operator<<(std::ostream& os, const OptionData& op);
 };
 
-#endif
+#endif // !OPTION_DATA_HPP

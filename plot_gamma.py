@@ -6,9 +6,9 @@ S, G = np.loadtxt('option_gamma.txt', delimiter=',', unpack=True)
 S2, G2 = np.loadtxt('MC_gammas.txt', delimiter=',', unpack=True)
 S3, G3 = np.loadtxt('MC_exact_gammas.txt', delimiter=',', unpack=True)
 
-plt.plot(S, G, 'b+-', label='Black Scholes gamma')
-plt.plot(S2, G2, 'r+-', label='Monte Carlo Euler gamma')
-plt.plot(S3, G3, 'g+-', label='Monte Carlo exact gamma')
+plt.plot(S, G, 'b+-', label='Fair option gamma')
+plt.plot(S2, G2, 'r+-', label='Monte Carlo Euler method gamma')
+plt.plot(S3, G3, 'g+-', label='Monte Carlo exact simulation gamma')
 plt.title(title)
 
 plt.xlabel('Initial stock price', fontsize=12)

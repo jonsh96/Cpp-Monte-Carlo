@@ -135,8 +135,10 @@
     <ClCompile Include="OptionData.cpp" />
     <ClCompile Include="RNG.cpp" />
     <ClCompile Include="SDE.cpp" />
-    <ClCompile Include="TestMC.cpp" />
+    <ClCompile Include="Test_accuracy.cpp" />
+    <ClCompile Include="Test_measurements.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
+    <ClCompile Include="Test_plot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataProcessing.hpp" />

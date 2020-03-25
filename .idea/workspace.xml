@@ -3,24 +3,34 @@
   <component name="ChangeListManager">
     <list default="true" id="9d7b6596-291d-4937-9f64-275dfaa7c4a5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataProcessing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/DataProcessing.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataProcessing.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/DataProcessing.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FDM.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/FDM.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FDM.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/FDM.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairValue.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/FairValue.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairValue.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/FairValue.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_deltas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_deltas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MC_exact_deltas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_exact_deltas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MC_exact_gammas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_exact_gammas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MC_exact_prices.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_exact_prices.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MC_exact_stddev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_exact_stddev.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_gammas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_gammas.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_prices.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_prices.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_stddev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_stddev.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MonteCarlo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MonteCarlo.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MonteCarlo.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/MonteCarlo.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OptionData.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/OptionData.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestMC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TestMC.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stopwatch.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Stopwatch.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestMC.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WbsProject.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/WbsProject.vcxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WbsProject.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/WbsProject.vcxproj.filters" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/option_delta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_delta.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/option_gamma.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_gamma.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/option_price.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_price.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_rho.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_rho.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_theta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_theta.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_vega.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_vega.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_delta.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_delta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_gamma.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_gamma.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/title.txt" beforeDir="false" afterPath="$PROJECT_DIR$/title.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

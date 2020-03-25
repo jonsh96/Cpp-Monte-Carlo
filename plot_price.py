@@ -6,9 +6,9 @@ S, G = np.loadtxt('option_price.txt', delimiter=',', unpack=True)
 S2, G2 = np.loadtxt('MC_prices.txt', delimiter=',', unpack=True)
 S3, G3 = np.loadtxt('MC_exact_prices.txt', delimiter=',', unpack=True)
 
-plt.plot(S, G, 'b+-', label='Black Scholes option price')
-plt.plot(S2, G2, 'r+-', label='Monte Carlo option price')
-plt.plot(S2, G2, 'g+-', label='Monte Carlo exact option price')
+plt.plot(S, G, 'b+-', label='Fair option price')
+plt.plot(S2, G2, 'r+-', label='Monte Carlo Euler method price')
+plt.plot(S3, G3, 'g+-', label='Monte Carlo exact simulation price')
 
 plt.title(title)
 plt.xlabel('Initial stock price', fontsize=12)
