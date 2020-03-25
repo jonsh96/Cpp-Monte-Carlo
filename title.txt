@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Geometric Asian call option simulations with parameters: 
+=======
+Geometric Asian call option simulations with parameters: 
+>>>>>>> 0099ef2e6bdf80a625b6b7fd410190d5ccaa3612
 (Smin, Smax, T, r, D, sigma, NT, M) = (10, 50, 1, 0.03, 0, 0.2, 100, 81920)
