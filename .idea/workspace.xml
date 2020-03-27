@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d7b6596-291d-4937-9f64-275dfaa7c4a5" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/time_error_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataProcessing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/DataProcessing.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataProcessing.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/DataProcessing.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDM.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/FDM.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDM.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/FDM.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairValue.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/FairValue.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairValue.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/FairValue.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_deltas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_deltas.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_exact_deltas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_exact_deltas.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_exact_gammas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_exact_gammas.txt" afterDir="false" />
@@ -17,19 +12,11 @@
       <change beforePath="$PROJECT_DIR$/MC_gammas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_gammas.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_prices.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_prices.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC_stddev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MC_stddev.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MonteCarlo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MonteCarlo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MonteCarlo.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/MonteCarlo.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OptionData.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/OptionData.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stopwatch.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Stopwatch.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestMC.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WbsProject.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/WbsProject.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WbsProject.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/WbsProject.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test_measurements.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Test_measurements.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test_plot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Test_plot.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/option_delta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_delta.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/option_gamma.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_gamma.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/option_price.txt" beforeDir="false" afterPath="$PROJECT_DIR$/option_price.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_delta.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_delta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_gamma.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_gamma.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_price.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/title.txt" beforeDir="false" afterPath="$PROJECT_DIR$/title.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +59,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.plot_price">
+  <component name="RunManager" selected="Python.time_error_analysis">
     <configuration name="plot_delta" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WbsProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -160,7 +147,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="plot_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="time_error_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="WbsProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -172,8 +159,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/time_error_analysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -183,19 +169,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.plot_test" />
       <item itemvalue="Python.plot_delta" />
       <item itemvalue="Python.plot_price" />
       <item itemvalue="Python.plot_gamma" />
       <item itemvalue="Python.plot_stddev" />
+      <item itemvalue="Python.time_error_analysis" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.time_error_analysis" />
         <item itemvalue="Python.plot_price" />
         <item itemvalue="Python.plot_stddev" />
         <item itemvalue="Python.plot_delta" />
         <item itemvalue="Python.plot_gamma" />
-        <item itemvalue="Python.plot_test" />
       </list>
     </recent_temporary>
   </component>
@@ -216,9 +202,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="178" width="1092" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584655558444">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1506" y="178" width="1092" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585228639961">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1506" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585228639961" />
     <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584655558444" />
     <state x="2334" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321526039" />
     <state x="414" y="178" width="1092" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584283924305" />
@@ -226,30 +213,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584283221780" />
-    <state width="1899" height="284" key="GridCell.Tab.0.bottom" timestamp="1584816679473">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="284" key="GridCell.Tab.0.bottom" timestamp="1585301991617">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="284" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991617" />
     <state width="1899" height="284" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679473" />
     <state width="1899" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1584320738932" />
     <state width="1899" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831475" />
     <state width="1899" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584283926414" />
-    <state width="1899" height="284" key="GridCell.Tab.0.center" timestamp="1584816679473">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="284" key="GridCell.Tab.0.center" timestamp="1585301991616">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="284" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991616" />
     <state width="1899" height="284" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679473" />
     <state width="1899" height="284" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1584320738931" />
     <state width="1899" height="284" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831474" />
     <state width="1899" height="284" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584283926413" />
-    <state width="1899" height="284" key="GridCell.Tab.0.left" timestamp="1584816679472">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="284" key="GridCell.Tab.0.left" timestamp="1585301991616">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="284" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991616" />
     <state width="1899" height="284" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679472" />
     <state width="1899" height="284" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1584320738931" />
     <state width="1899" height="284" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831474" />
     <state width="1899" height="284" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584283926413" />
-    <state width="1899" height="284" key="GridCell.Tab.0.right" timestamp="1584816679473">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="284" key="GridCell.Tab.0.right" timestamp="1585301991616">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="284" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991616" />
     <state width="1899" height="284" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679473" />
     <state width="1899" height="284" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1584320738932" />
     <state width="1899" height="284" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831474" />

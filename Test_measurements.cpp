@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 
-/*
+
 // Measures time and max pricing error for multiple numbers of simulations
 int main()
 {
@@ -30,9 +30,9 @@ int main()
 	alpha = 0.05; 
 	accuracy = 0.01;
 	type = 'C';
-	style = 2;
+	style = 0;
 	NT = 100;
-	M = 10;
+	M = 81920;
 
 	// Store option data
 	OptionData OD(Smin, K, T, r, sigma, D, type, style); 
@@ -48,7 +48,7 @@ int main()
 	std::vector<std::pair<double, double>> euler_meas;
 	std::vector<std::pair<double, double>> exact_meas;
 
-	for (int i = M; i < 100000; i *= 2)
+	for (int i = M; i < 500000; i *= 2)
 	{
 		std::cout << "Number of simulations: " << i << "\n";
 		std::get<0>(MC_tuple).setNumberOfSimulations(i);
@@ -65,8 +65,8 @@ int main()
 
 	for (int i = 0; i < exact_meas.size(); i++)
 	{
-		std::cout << 10*pow(2,i) << "," << exact_meas[i].first << "," << exact_meas[i].second << ",";
-		std::cout << euler_meas[i].first << "," << euler_meas[i].second << "\n";
+		std::cout << 81920*pow(2,i) << "," << euler_meas[i].first << "," << euler_meas[i].second << ",";
+		std::cout << exact_meas[i].first << "," << exact_meas[i].second << "\n";
 	}
 
-}*/
+}

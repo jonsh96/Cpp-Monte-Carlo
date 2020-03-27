@@ -7,7 +7,7 @@
 #include <random>
 #include <iostream>
 #include <vector>
-
+/*
 // Returns an accurate price of an option, using M = 1,000,000
 int main()
 {
@@ -28,8 +28,8 @@ int main()
 	D = 0.01;
 	alpha = 0.05;
 	accuracy = 0.01;
-	type = 'C';
-	style = 0;
+	type = 'P';
+	style = 2;
 	NT = 100;
 	M = 50000;
 
@@ -52,4 +52,4 @@ int main()
 	DP.plotGammas();
 	DP.printSummary();
 	return 0;
-}
+}*/
