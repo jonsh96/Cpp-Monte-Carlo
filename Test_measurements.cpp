@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 
-
+/*
 // Measures time and max pricing error for multiple numbers of simulations
 int main()
 {
@@ -32,7 +32,7 @@ int main()
 	type = 'C';
 	style = 0;
 	NT = 100;
-	M = 81920;
+	M = 10;
 
 	// Store option data
 	OptionData OD(Smin, K, T, r, sigma, D, type, style); 
@@ -69,4 +69,4 @@ int main()
 		std::cout << exact_meas[i].first << "," << exact_meas[i].second << "\n";
 	}
 
-}
+}*/
