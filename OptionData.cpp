@@ -36,11 +36,11 @@ double OptionData::payoff(std::vector<double> path)
 	// - knock in, out, etc ...
 
 	double S = 0.0, P;
-	if (style == 0)		// European
+	if (style == 0)		// European option
 		S = path.back();
-	else if(style == 1)
+	else if(style == 1)	// Arithemtic Asian option
 		S = std::accumulate(path.begin(), path.end(), 0) / static_cast<double>(path.size());
-	else if(style == 2) // Asian
+	else if(style == 2) // Geometric Asian option
 	{
 		double geo_sum = path[0];
 		for (int i = 1; i < path.size(); i++)

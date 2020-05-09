@@ -1,3 +1,6 @@
+""" 
+Decided that this was not interesting/useful
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -15,3 +18,4 @@ plt.ylabel('Asset price', fontsize=12)
 plt.xlim([0, len(data[0, :])-1])
 plt.grid(True)
 plt.show()
+"""

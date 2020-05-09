@@ -25,7 +25,8 @@ class MonteCarlo
 private:
 	double S0, SD, SE, Smin, Smax, dS, option_price, time_elapsed, accuracy, alpha;
 	long NT, M;
-	int SDE_type, style; // 0 for Euler, 1 for exact simulation 
+	int SDE_type;	// 0 for Euler, 1 for exact simulation 
+	int style;		// 0 for European, 1 for Arithmetic Asian, 2 for Geometric Asian
 	OptionData myOption;
 	FairValue fairOption;
 	std::vector<std::vector<double>> dW, paths_plus, paths_minus;
