@@ -5,7 +5,10 @@
 #ifndef DATA_PROCESSING_HPP
 #define DATA_PROCESSING_HPP
 
-// Stores two Monte Carlo simulations and processes the data to plot
+/*	ABOUT
+	- Stores two Monte Carlo simulations 
+	- Processes and plots the data
+*/
 class DataProcessing
 { 
 private:

@@ -40,7 +40,6 @@ void MonteCarlo::run()
 	// Generate the paths using path recycling (same Wiener process matrix for each price) 
 	RNG randGen(this->NT, this->M);
 	double dt = this->myOption.T / static_cast<double>(this->NT);
-
 	this->dW = randGen.generateWienerProcesses(dt);
 	
 	// Generate stock paths and prices
@@ -69,6 +68,7 @@ void MonteCarlo::rerun()
 
 void MonteCarlo::generatePaths(double S)
 {
+	// Generates path starting with initial price s
 	SDE sde(this->myOption, SDE_type, NT);
 	double M = static_cast<double>(this->M);
 	std::tuple<std::vector<double>, std::vector<double>> myTuple;
@@ -158,6 +158,7 @@ double MonteCarlo::maxPricingError()
 		if (tempError > maxError)
 			maxError = tempError;
 	}
+
 	return maxError;
 }
 double MonteCarlo::maxStandardError()
@@ -201,22 +202,6 @@ long MonteCarlo::minSimulationsNeeded()
 }
 
 // Print functions
-/*void MonteCarlo::printSummary()
-{
-	std::cout << "----------------------------------";
-	std::cout << "\nSummary of Monte Carlo simulation:";
-	std::cout << "\n----------------------------------";
-	if (this->SDE_type == 0)
-		std::cout << "\nEuler method";
-	else
-		std::cout << "\Explicit method";
-	std::cout << "\nMax pricing error:\t" << this->maxPricingError();
-	std::cout << "\nMax standard error:\t" << this->maxStandardError();
-	std::cout << "\nMax standard deviation:\t" << this->maxStandardDeviation();
-	std::cout << "\nMin simulations needed:\t" << this->minSimulationsNeeded();
-	std::cout << "\nTime elapsed:\t\t" << this->getTimeElapsed();
-	std::cout << "\n----------------------------------\n";
-}*/
 std::ostream& operator<<(std::ostream& os, const MonteCarlo& MC)
 {	
 	// Overloaded print function
@@ -245,15 +230,15 @@ std::ostream& operator<<(std::ostream& os, const MonteCarlo& MC)
 	else
 		option_type = "put option ";
 	
-	os << option_style << option_type << "simulations with parameters: \n(Smin, Smax, K, T, r, D, sigma, NT, M) = (";
+	os << option_style << option_type << "simulations with parameters: \n(Smin, Smax, K, T, r, q, sigma, NT, M) = (";
 	os << MC.Smin << ", " << MC.Smax << ", " << MC.myOption.K<< ", " << MC.myOption << ", " << MC.NT << ", " << MC.M << ")";
 	return os;
 }
 
-// -----------------------------------------------
-// Helper functions for normal cdf inverse from
-// https://www.johndcook.com/blog/cpp_phi_inverse/
-// -----------------------------------------------
+/* -----------------------------------------------
+	Helper functions for normal cdf inverse from
+	https://www.johndcook.com/blog/cpp_phi_inverse/
+-------------------------------------------------*/
 
 double RationalApproximation(double t)
 {
@@ -274,7 +259,6 @@ double NormalCDFInverse(double p)
 		throw std::invalid_argument(os.str());
 	}
 
-	// See article above for explanation of this section.
 	if (p < 0.5)
 	{
 		// F^-1(p) = - G^-1(p)

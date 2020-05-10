@@ -1,2 +1,2 @@
-Arithmetic Asian put option simulations with parameters: 
-(Smin, Smax, K, T, r, D, sigma, NT, M) = (10, 100, 50, 1, 0.05, 0.01, 0.25, 100, 1000)
+Geometric Asian put option simulations with parameters: 
+(Smin, Smax, K, T, r, q, sigma, NT, M) = (10, 100, 50, 1, 0.05, 0.025, 0.25, 100, 10000)

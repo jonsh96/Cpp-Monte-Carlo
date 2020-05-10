@@ -1,15 +1,25 @@
 from statistics import mean
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+
+"""
+ABOUT: 
+- Reads time and error values from text files
+- Plots the value
+- Calculates time complexity coefficients
+"""
 
 
 def complexity(n, t):
+    # Returns the complexity coefficients
     h, k = best_fit_slope_and_intercept(np.log(n), np.log(t))
     a = np.exp(k)
     return a, h
 
 
 def best_fit_slope_and_intercept(xs, ys):
+    # Returns the coefficient of the best fitting slope
     h = (((mean(xs) * mean(ys)) - mean(xs * ys)) /
          ((mean(xs) * mean(xs)) - mean(xs * xs)))
     k = mean(ys) - h * mean(xs)
@@ -17,56 +27,133 @@ def best_fit_slope_and_intercept(xs, ys):
 
 
 def time_plot(n, y):
-    plt.plot(n, y, '+-')
+    # Plots the time measurements
+    plt.plot(n, y, 'o--')
     plt.grid(True, which="both")
     plt.xlim([min(N), max(N)])
-    plt.xlabel('Number of simulations')
-    plt.ylabel('Time elapsed')
+    plt.xlabel('Number of simulations', fontsize=16)
+    plt.ylabel('Time elapsed', fontsize=16)
 
 
 def error_plot(n, y):
-    plt.plot(n, y, '+-')
+    # Plots the error measurements
+    plt.plot(n, y, 'o--')
     plt.grid(True, which="both")
     plt.xscale('log')
     plt.xlim([min(n), max(n)])
-    plt.xlabel('Number of simulations')
-    plt.ylabel('Maximum pricing error')
+    plt.xlabel('Number of simulations', fontsize=16)
+    plt.ylabel('Maximum pricing error', fontsize=16)
 
+# Gets folder above relative to this file
+dir_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-N = [10, 20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240, 20480, 40960, 81920, 163840, 327680]
-european_Euler_time = [0.0237206, 0.0255406, 0.0726509, 0.127999, 0.257006, 0.385934, 1.37282, 1.50367, 2.46535,
-                       5.24142, 10.1908, 15.1865, 45.2882, 87.3545, 117.253, 314.515]
-european_Exact_time = [0.0178763, 0.046874, 0.120472, 0.196204, 0.305918, 0.699898, 1.43784, 1.87832, 3.91102, 7.3806,
-                       15.3002, 31.8701, 62.9145, 120.765, 181.451, 524.777]
-european_Euler_max_error = [7.71273, 3.69363, 0.32404, 0.0897466, 1.0019, 0.34801, 0.674294, 0.385727, 0.198897,
-                            0.163609, 0.0212755, 0.0271782, 0.0231619, 0.0331916, 0.00618167, 0.00510076]
-european_Exact_max_error = [7.72516, 3.73183, 0.375555, 0.0866982, 1.01528, 0.352993, 0.677048, 0.389299, 0.201086,
-                            0.163756, 0.0200938, 0.0279351, 0.0236344, 0.0327875, 0.00628543, 0.0050719]
-asian_Euler_time = [0.0147769, 0.0315528, 0.0876078, 0.13283, 0.249323, 0.538955, 0.848913, 1.74639, 3.89538, 7.23833,
-                    14.4309, 30.334, 65.5701, 108.585, 159.164, 329.12]
-asian_Exact_time = [0.0128261, 0.0176813, 0.0430418, 0.06783, 0.178546, 0.323732, 0.675347, 1.08533, 2.3104, 4.20908,
-                    7.89166, 16.3747, 42.9212, 67.5838, 229.552, 587.689]
-asian_Euler_max_error = [3.73275, 1.26945, 0.333781, 0.281497, 0.167654, 0.141123, 0.108136, 0.135941, 0.0865451,
-                         0.110479, 0.0378996, 0.026195, 0.0230628, 0.0298633, 0.00714853, 0.0061245]
-asian_Exact_max_error = [3.74902, 1.29502, 0.31541, 0.267739, 0.171983, 0.140947, 0.109082, 0.136795, 0.0872566,
-                         0.109799, 0.0379321, 0.0258486, 0.0224782, 0.03013, 0.00718541, 0.00613467]
+# Reads the title and parameters from file
+title = open(dir_path + '\\data\\title.txt').read()
+params = title[title.find("(Smin"):len(title)]
 
-print("European Euler time complexity: ", complexity(N, european_Euler_time))
-print("European exact time complexity: ", complexity(N, european_Exact_time))
-print("Asian Euler time complexity: ", complexity(N, asian_Euler_time))
-print("Asian exact time complexity: ", complexity(N, asian_Exact_time))
+# Filenames
+euro_call_path = dir_path + '\\data\\call_style_0_measurements.txt'
+euro_put_path = dir_path + '\\data\\put_style_0_measurements.txt'
+asia_call_1_path = dir_path + '\\data\\call_style_1_measurements.txt'
+asia_put_1_path = dir_path + '\\data\\put_style_1_measurements.txt'
+asia_call_2_path = dir_path + '\\data\\call_style_2_measurements.txt'
+asia_put_2_path = dir_path + '\\data\\put_style_2_measurements.txt'
 
-time_plot(N, european_Euler_time)
-time_plot(N, european_Exact_time)
-time_plot(N, asian_Euler_time)
-time_plot(N, asian_Exact_time)
-plt.legend(['European Euler time', 'European exact time', 'Asian Euler time', 'Asian exact time'])
+# Loads data from text files
+N, euro_call_euler_time, euro_call_euler_err, euro_call_exact_time, euro_call_exact_err \
+    = np.loadtxt(euro_call_path, delimiter=',', unpack=True)
+N, euro_put_euler_time, euro_put_euler_err, euro_put_exact_time, euro_put_exact_err \
+    = np.loadtxt(euro_put_path, delimiter=',', unpack=True)
+N, asia_call_1_euler_time, asia_call_1_euler_err, asia_call_1_exact_time, asia_call_1_exact_err \
+    = np.loadtxt(asia_call_1_path, delimiter=',', unpack=True)
+N, asia_put_1_euler_time, asia_put_1_euler_err, asia_put_1_exact_time, asia_put_1_exact_err \
+    = np.loadtxt(asia_put_1_path, delimiter=',', unpack=True)
+N, asia_call_2_euler_time, asia_call_2_euler_err, asia_call_2_exact_time, asia_call_2_exact_err \
+    = np.loadtxt(asia_call_2_path, delimiter=',', unpack=True)
+N, asia_put_2_euler_time, asia_put_2_euler_err, asia_put_2_exact_time, asia_put_2_exact_err \
+    = np.loadtxt(asia_put_2_path, delimiter=',', unpack=True)
+
+# Calculates the time complexity for the call options
+print("\nCall options:")
+print("European Euler time complexity: ", complexity(N, euro_call_euler_time))
+print("European exact time complexity: ", complexity(N, euro_call_exact_time))
+print("Arithmetic Asian Euler time complexity: ", complexity(N, asia_call_1_euler_time))
+print("Arithmetic Asian exact time complexity: ", complexity(N, asia_call_1_exact_time))
+print("Geometric Asian Euler time complexity: ", complexity(N, asia_call_2_euler_time))
+print("Geometric Asian exact time complexity: ", complexity(N, asia_call_2_exact_time))
+
+# Plotting the time measurements
+time_plot(N, euro_call_euler_time)
+time_plot(N, euro_call_exact_time)
+time_plot(N, asia_call_1_euler_time)
+time_plot(N, asia_call_1_exact_time)
+time_plot(N, asia_call_2_euler_time)
+time_plot(N, asia_call_2_exact_time)
+plt.title('Time plot for call options\n'+params, fontsize=20)
+plt.legend(['European Euler time', 'European exact time', 'Asian Arithmetic Euler time','Asian Arithmetic exact time',
+            'Asian Geometric Euler time', 'Asian Geometric exact time'], fontsize=16)
+figure = plt.gcf()
+figure.set_size_inches(16, 9)
+# Saves the figure as a .png file
+plt.savefig(dir_path + '\\figures\\call_time_plot.png', dpi=100, bbox_inches='tight')
 plt.show()
 
-error_plot(N, european_Euler_max_error)
-error_plot(N, european_Exact_max_error)
-error_plot(N, asian_Euler_max_error)
-error_plot(N, asian_Exact_max_error)
-plt.legend(['European Euler pricing error', 'European exact pricing error',
-            'Asian Euler pricing error', 'Asian exact pricing error'])
+# Plotting the error measurements
+error_plot(N, euro_call_euler_err)
+error_plot(N, euro_call_exact_err)
+error_plot(N, asia_call_1_euler_err)
+error_plot(N, asia_call_1_exact_err)
+error_plot(N, asia_call_2_euler_err)
+error_plot(N, asia_call_2_exact_err)
+plt.title('Error plot for call option\n' + params, fontsize=20)
+plt.legend(['European Euler maximum error', 'European exact maximum error', 'Asian Arithmetic Euler maximum error',
+            'Asian Arithmetic exact maximum error', 'Asian Geometric Euler maximum error',
+            'Asian Geometric exact maximum error'], fontsize=16)
+figure = plt.gcf()
+figure.set_size_inches(16, 9)
+# Saves the figure as a .png file
+plt.savefig(dir_path + '\\figures\\call_error_plot.png', dpi=100, bbox_inches='tight')
 plt.show()
+
+# Calculates the time complexity for the put options
+print("\nPut options:")
+print("European Euler time complexity: ", complexity(N, euro_put_euler_time))
+print("European exact time complexity: ", complexity(N, euro_put_exact_time))
+print("Arithmetic Asian Euler time complexity: ", complexity(N, asia_put_1_euler_time))
+print("Arithmetic Asian exact time complexity: ", complexity(N, asia_put_1_exact_time))
+print("Geometric Asian Euler time complexity: ", complexity(N, asia_put_2_euler_time))
+print("Geometric Asian exact time complexity: ", complexity(N, asia_put_2_exact_time))
+
+# Plotting the time measurements
+time_plot(N, euro_put_euler_time)
+time_plot(N, euro_put_exact_time)
+time_plot(N, asia_put_1_euler_time)
+time_plot(N, asia_put_1_exact_time)
+time_plot(N, asia_put_2_euler_time)
+time_plot(N, asia_put_2_exact_time)
+plt.title('Time plot for put options\n' + params, fontsize=20)
+plt.legend(['European Euler time', 'European exact time', 'Asian Arithmetic Euler time','Asian Arithmetic exact time',
+            'Asian Geometric Euler time', 'Asian Geometric exact time'], fontsize=16)
+figure = plt.gcf()
+figure.set_size_inches(16, 9)
+# Saves the figure as a .png file
+plt.savefig(dir_path + '\\figures\\put_time_plot.png', dpi=100, bbox_inches='tight')
+plt.show()
+
+# Plotting the error measurements
+error_plot(N, euro_put_euler_err)
+error_plot(N, euro_put_exact_err)
+error_plot(N, asia_put_1_euler_err)
+error_plot(N, asia_put_1_exact_err)
+error_plot(N, asia_put_2_euler_err)
+error_plot(N, asia_put_2_exact_err)
+plt.title('Error plot for put option\n' + params, fontsize=20)
+plt.legend(['European Euler maximum error', 'European exact maximum error', 'Asian Arithmetic Euler maximum error',
+            'Asian Arithmetic exact maximum error', 'Asian Geometric Euler maximum error',
+            'Asian Geometric exact maximum error'], fontsize=16)
+figure = plt.gcf()
+figure.set_size_inches(16, 9)
+# Save the figure as a .png file
+plt.savefig(dir_path + '\\figures\\put_error_plot.png', dpi=100, bbox_inches='tight')
+plt.show()
+

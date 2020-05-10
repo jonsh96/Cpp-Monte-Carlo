@@ -32,8 +32,10 @@ struct OptionData
 	// Option data + behaviour
 	double S0, K, T, r, sigma, D;
 	char type;		// type == 'C' if call, type == 'P' if put
-	int style;		// style == 0 if European, style == 1 if Asian
-					
+	int style;		// style == 0 if European, 
+					// style == 1 if Arithmetic Asian
+					// style == 2 if Geometric Asian
+
 	// Default constructor
 	OptionData() : S0(0.0), K(0.0), T(0.0), r(0.0), 
 		sigma(0.0), D(0.0), type('C'), style(0) {}
@@ -59,7 +61,7 @@ struct OptionData
 		style = args[OptionParams::style];
 	}
 
-	// SET FUNCTIONS
+	// Set functions
 	void setInitialPrice(double S);
 	void setStrike(double K);
 	void setMaturity(double T);
@@ -69,7 +71,7 @@ struct OptionData
 	void setType(char type);
 	void setOptionType(int style);
 
-	// GET FUNCTIONS
+	// Get functions
 	double getInitialPrice();
 	double getStrike();
 	double getMaturity();

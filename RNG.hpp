@@ -1,8 +1,13 @@
-#include <vector>
-
 #ifndef RNG_HPP
 #define RNG_HPP
 
+// Built-in header files
+#include <vector>
+
+/* ABOUT
+	- Random number generator
+	- Used to create Wiener process values in the Monte Carlo simulations
+*/
 class RNG
 {
 private:

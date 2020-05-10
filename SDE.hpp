@@ -1,10 +1,17 @@
 #ifndef SDE_HPP
 #define SDE_HPP
 
-#include "OptionData.hpp" // in local directory
+// Built-in header files
 #include <cmath>
 #include <vector>
 #include <iostream>
+
+// Custom header files
+#include "OptionData.hpp"
+
+/* ABOUT
+	- Stochastic differential equation schemes
+	- Uses the Euler method and the exact method to simulate stock prices*/
 
 class SDE
 { // Defines drift + diffusion + data 

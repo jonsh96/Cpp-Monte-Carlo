@@ -40,7 +40,7 @@ std::map<double, double> FairValue::generateDeltas(double Smin, double Smax, dou
 
 std::map<double, double> FairValue::generateGammas(double Smin, double Smax, double dS)
 {
-	// Generates gamma map
+	// Generates gamma map 
 	std::map<double, double> myMap;
 	for (double s = Smin; s < Smax; s += dS)
 	{

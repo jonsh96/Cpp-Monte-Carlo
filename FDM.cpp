@@ -41,7 +41,7 @@ std::map<double, double> FDM::SOCD() const
 		curr = this->map_data.at(s);
 		next = this->map_data.at(s + dS);
 
-		// Gamma (dC^2/(dS)^2 calculated with the second-order central difference method
+		// Gamma (dC^2/(dS)^2 calculated with the second-order central difference method 
 		gamma = (next - 2.0 * curr + prev) / (dS * dS);
 		retMap.insert(std::pair<double, double>(s, gamma));
 	}

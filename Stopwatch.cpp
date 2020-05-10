@@ -1,5 +1,5 @@
 // StopWatch.cpp
-//
+// 
 // (C) Datasim Education BV 2017
 //
 

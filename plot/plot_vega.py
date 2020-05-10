@@ -1,3 +1,11 @@
+""""
+ABOUT:
+- Reads vega values from text files
+- Plots the values
+- Saves figures as .png
+
+- This did not end up in the final product as simulating the paths to generate vega is not particularly interesting
+
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -14,3 +22,4 @@ plt.xlim([min(S), max(S)])
 plt.grid()
 plt.legend()
 plt.show()
+"""

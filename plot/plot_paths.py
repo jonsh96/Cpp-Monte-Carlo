@@ -1,5 +1,8 @@
 """ 
-Decided that this was not interesting/useful
+ABOUT:
+- Plots the paths of the stock price
+- I decided that this was not interesting/useful
+    - Very time consuming to write the paths to text
 
 import numpy as np
 import matplotlib.pyplot as plt

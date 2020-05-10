@@ -33,15 +33,15 @@ void DataProcessing::storeData()
 	this->writeToFile(std::get<0>(this->MC).getFairOption().getGammaMap(), "data/option_gamma.txt");
 
 	// Write the maps (prices, deltas, gammas) to text file to plot data in Python
-	if (std::get<0>(this->MC).getSDEtype() == 0)
-	{
+	if (std::get<0>(this->MC).getSDEtype() == 0) 
+	{	// Euler method
 		this->writeToFile(std::get<0>(this->MC).getPrices(), "data/MC_prices.txt");
 		this->writeToFile(std::get<0>(this->MC).getDeltas(), "data/MC_deltas.txt");
 		this->writeToFile(std::get<0>(this->MC).getGammas(), "data/MC_gammas.txt");
 		this->writeToFile(std::get<0>(this->MC).getStdDev(), "data/MC_stddev.txt");
 	}
 	else
-	{
+	{	// Exact method
 		this->writeToFile(std::get<0>(this->MC).getPrices(), "data/MC_exact_prices.txt");
 		this->writeToFile(std::get<0>(this->MC).getDeltas(), "data/MC_exact_deltas.txt");
 		this->writeToFile(std::get<0>(this->MC).getGammas(), "data/MC_exact_gammas.txt");
@@ -50,14 +50,14 @@ void DataProcessing::storeData()
 
 	// Write the maps (prices, deltas, gammas) to text file to plot data in Python
 	if (std::get<1>(this->MC).getSDEtype() == 0)
-	{
+	{	// Euler method
 		this->writeToFile(std::get<1>(this->MC).getPrices(), "data/MC_prices.txt");
 		this->writeToFile(std::get<1>(this->MC).getDeltas(), "data/MC_deltas.txt");
 		this->writeToFile(std::get<1>(this->MC).getGammas(), "data/MC_gammas.txt");
 		this->writeToFile(std::get<1>(this->MC).getStdDev(), "data/MC_stddev.txt");
 	}
 	else
-	{
+	{	// Exact method
 		this->writeToFile(std::get<1>(this->MC).getPrices(), "data/MC_exact_prices.txt");
 		this->writeToFile(std::get<1>(this->MC).getDeltas(), "data/MC_exact_deltas.txt");
 		this->writeToFile(std::get<1>(this->MC).getGammas(), "data/MC_exact_gammas.txt");
@@ -95,6 +95,7 @@ void DataProcessing::plotGammas()
 
 void DataProcessing::printSummary()
 {
+	// Prints the summary of the Monte Carlo simulation
 	MonteCarlo MC_euler = std::get<0>(MC);
 	MonteCarlo MC_exact = std::get<1>(MC);
 

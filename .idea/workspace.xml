@@ -2,99 +2,71 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d7b6596-291d-4937-9f64-275dfaa7c4a5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/data/MC_deltas.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_exact_deltas.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_exact_gammas.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_exact_prices.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_exact_stddev.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_exact_stddev_VR.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_exact_stdev.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_exact_stdev_noVR.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_gammas.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_prices.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_stddev.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_stddev_VR.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_stdev.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/MC_stdev_noVR.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/option_delta.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/option_gamma.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/option_price.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/option_rho.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/option_theta.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/option_vega.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/paths.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/test_deltas.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/test_plot.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/test_plot_new.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/test_rhos.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/title.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_delta.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_gamma.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_paths.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_price.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_rho.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_stddev.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_theta.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/plot_vega.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot/time_error_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WbsProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WbsProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/call_style_0_measurements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/call_style_1_measurements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/call_style_2_measurements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/put_style_0_measurements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/put_style_1_measurements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/put_style_2_measurements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Arithmetic_Asian_call_option_delta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Arithmetic_Asian_call_option_gamma.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Arithmetic_Asian_call_option_price.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Arithmetic_Asian_put_option_delta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Arithmetic_Asian_put_option_gamma.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Arithmetic_Asian_put_option_price.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/European_call_option_delta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/European_call_option_gamma.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/European_call_option_price.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/European_put_option_delta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/European_put_option_gamma.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/European_put_option_price.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Geometric_Asian_call_option_delta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Geometric_Asian_call_option_gamma.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Geometric_Asian_call_option_price.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Geometric_Asian_put_option_delta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Geometric_Asian_put_option_gamma.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/Geometric_Asian_put_option_price.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/MonteCarlo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/call_error_plot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/call_time_plot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/put_error_plot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/put_time_plot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_test.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataProcessing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/DataProcessing.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/random.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_deltas.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_exact_deltas.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_exact_gammas.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_exact_prices.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_exact_stddev.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_exact_stddev_VR.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_exact_stdev.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_exact_stdev_noVR.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_gammas.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_prices.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_stddev.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_stddev_VR.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_stdev.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC_stdev_noVR.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataProcessing.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/DataProcessing.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FDM.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/FDM.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairValue.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/FairValue.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MonteCarlo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MonteCarlo.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MonteCarlo.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/MonteCarlo.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MonteCarlo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OptionCommand.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/OptionCommand.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OptionData.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/OptionData.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test_accuracy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Test_accuracy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test_measurements.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Test_measurements.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test_plot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Test_plot.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_delta.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_gamma.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_price.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_rho.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_theta.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/option_vega.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/paths.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_delta.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_gamma.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_paths.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_price.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_rho.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_stddev.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_theta.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_vega.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_deltas.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_plot.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_plot_new.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_rhos.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/time_error_analysis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/title.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/Stopwatch.obj" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/Stopwatch.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.exe" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.ilk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.log" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/WbsProject.tlog/link.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/vc142.idb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc142.idb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/vc142.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc142.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WbsProject.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/WbsProject.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WbsProject.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/WbsProject.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_deltas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_deltas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_exact_deltas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_exact_deltas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_exact_gammas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_exact_gammas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_exact_prices.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_exact_prices.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_exact_stddev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_exact_stddev.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_gammas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_gammas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_prices.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_prices.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MC_stddev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/MC_stddev.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/option_delta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/option_delta.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/option_gamma.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/option_gamma.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/option_price.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/option_price.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/title.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/title.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_delta.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_delta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_gamma.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_gamma.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_paths.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_rho.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_rho.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_stddev.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_stddev.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_theta.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_theta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/plot_vega.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/plot_vega.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot/time_error_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot/time_error_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +117,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.time_error_analysis (1)">
-    <configuration name="plot_delta (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="delete_this" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="WbsProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -157,7 +129,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot/plot_delta.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot/delete_this.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -166,20 +138,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="plot_delta" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="plot_gamma" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="WbsProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Jón Sveinbjörn\AppData\Local\Programs\Python\Python38-32\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/plot" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot/temp.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot/plot_gamma.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -188,20 +159,40 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="plot_price" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="plot_price" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="WbsProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/plot" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot_price.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot/plot_price.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plot_stddev" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="WbsProject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/plot" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot/plot_stddev.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -231,40 +222,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="time_error_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="WbsProject" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/time_error_analysis.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.plot_delta" />
-      <item itemvalue="Python.plot_price" />
-      <item itemvalue="Python.time_error_analysis" />
-      <item itemvalue="Python.plot_delta (1)" />
       <item itemvalue="Python.time_error_analysis (1)" />
+      <item itemvalue="Python.delete_this" />
+      <item itemvalue="Python.plot_price" />
+      <item itemvalue="Python.plot_gamma" />
+      <item itemvalue="Python.plot_stddev" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.time_error_analysis (1)" />
-        <item itemvalue="Python.plot_delta (1)" />
-        <item itemvalue="Python.plot_delta" />
-        <item itemvalue="Python.time_error_analysis" />
+        <item itemvalue="Python.plot_stddev" />
+        <item itemvalue="Python.delete_this" />
+        <item itemvalue="Python.plot_gamma" />
         <item itemvalue="Python.plot_price" />
       </list>
     </recent_temporary>
@@ -301,47 +271,47 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584283221780" />
-    <state width="1893" height="269" key="GridCell.Tab.0.bottom" timestamp="1589026817542">
+    <state width="1893" height="269" key="GridCell.Tab.0.bottom" timestamp="1589146571814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="284" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991617" />
     <state width="1899" height="284" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679473" />
-    <state width="1893" height="269" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589026817542" />
+    <state width="1893" height="269" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589146571814" />
     <state width="1899" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831475" />
-    <state width="1899" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584283926414" />
-    <state width="1893" height="269" key="GridCell.Tab.0.center" timestamp="1589026817542">
+    <state width="1893" height="269" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589115183950" />
+    <state width="1893" height="269" key="GridCell.Tab.0.center" timestamp="1589146571813">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="284" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991616" />
     <state width="1899" height="284" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679473" />
-    <state width="1893" height="269" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589026817542" />
+    <state width="1893" height="269" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589146571813" />
     <state width="1899" height="284" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831474" />
-    <state width="1899" height="284" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584283926413" />
-    <state width="1893" height="269" key="GridCell.Tab.0.left" timestamp="1589026817542">
+    <state width="1893" height="269" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589115183950" />
+    <state width="1893" height="269" key="GridCell.Tab.0.left" timestamp="1589146571813">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="284" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991616" />
     <state width="1899" height="284" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679472" />
-    <state width="1893" height="269" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589026817542" />
+    <state width="1893" height="269" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589146571813" />
     <state width="1899" height="284" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831474" />
-    <state width="1899" height="284" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584283926413" />
-    <state width="1893" height="269" key="GridCell.Tab.0.right" timestamp="1589026817542">
+    <state width="1893" height="269" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589115183949" />
+    <state width="1893" height="269" key="GridCell.Tab.0.right" timestamp="1589146571814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="284" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1585301991616" />
     <state width="1899" height="284" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584816679473" />
-    <state width="1893" height="269" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589026817542" />
+    <state width="1893" height="269" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589146571814" />
     <state width="1899" height="284" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584321831474" />
-    <state width="1899" height="284" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584283926414" />
+    <state width="1893" height="269" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589115183950" />
     <state x="463" y="151" key="SettingsEditor" timestamp="1589024156527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="463" y="151" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589024156527" />
     <state x="463" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1584283614034" />
-    <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1589023761931">
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1589144567056">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589023761931" />
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589144567056" />
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584283308648" />
   </component>
 </project>

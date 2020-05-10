@@ -70,7 +70,7 @@ std::tuple< std::vector<double>, std::vector<double>> SDE::generatePaths(double 
 	path_plus.push_back(std::get<0>(VOld));
 	path_minus.push_back(std::get<1>(VOld));
 
-	// Make tuple and return
+	// Make tuple and return 
 	std::tuple<std::vector<double>, std::vector<double>> returnTuple{ path_plus, path_minus };
 	return returnTuple;
 }

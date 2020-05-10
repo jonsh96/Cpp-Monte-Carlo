@@ -1,12 +1,7 @@
 #ifndef MONTE_CARLO_HPP
 #define MONTE_CARLO_HPP
 
-#include "OptionData.hpp"
-#include "StopWatch.cpp"
-#include "SDE.hpp"
-#include "RNG.hpp"
-#include "FDM.hpp"
-#include "FairValue.hpp"
+// Built-in header files
 #include <vector>
 #include <random>
 #include <memory>
@@ -17,8 +12,19 @@
 #include <Windows.h>
 #include <algorithm>
 
+// Custom header files
+#include "OptionData.hpp"
+#include "StopWatch.cpp"
+#include "SDE.hpp"
+#include "RNG.hpp"
+#include "FDM.hpp"
+#include "FairValue.hpp"
+
 double RationalApproximation(double t);
 double NormalCDFInverse(double p);
+
+/* ABOUT
+	- stores the option data and performs Monte Carlo simulations*/
 
 class MonteCarlo
 {
@@ -94,7 +100,6 @@ public:
 	long minSimulationsNeeded();
 
 	// Print functions
-	// void printSummary();
 	friend std::ostream& operator<< (std::ostream& os, const MonteCarlo& MC);
 };
 

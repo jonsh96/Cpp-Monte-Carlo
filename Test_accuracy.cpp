@@ -11,14 +11,12 @@
 #include "DataProcessing.hpp"
 
 /*	DESCRIPTION
-	Runs the Euler and exact method for an option
-	Plots the option's price, delta and gamma for a range of stock prices
-	Returns an accurate price of an option
-	Prints a summary of the results*/
+	- Runs the Euler and exact method for an option
+	- Plots the option's price, delta and gamma for a range of stock prices
+	- Returns an accurate price of an option
+	- Prints a summary of the results*/
 
-/*
-// Returns an accurate price of an option, using M = 1,000,000
-int main()
+/*int main()
 {
 	// Define variable
 	double Smin, Smax, dS, K, T, r, sigma, D, alpha, accuracy;
@@ -36,7 +34,7 @@ int main()
 	T = 1.0;			// Time to maturity in years
 	r = 0.05;			// Constant interest rates
 	sigma = 0.25;		// Constant volatility
-	D = 0.01;			// Constant dividends
+	D = 0.025;			// Constant dividends
 	type = 'C';			// Option type, 'C' = call, 'P' = Put
 	style = 1;			// Option style, 0 = European, 1 = Arithmetic Asian, 2 = Geometric Asian
 	NT = 250;			// Number of time steps 

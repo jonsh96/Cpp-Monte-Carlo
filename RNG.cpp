@@ -4,7 +4,7 @@
 std::vector<std::vector<double>> RNG::generateWienerProcesses(double dt)
 {
 	// Generates Wiener processes and stores as a matrix
-	// Normal (0,1) rng
+	// Normal (0,1) rng 
 	std::mt19937 rd;
 	std::default_random_engine generator(rd()); // rd() provides a random seed
 	std::normal_distribution<double> distribution(0, 1);

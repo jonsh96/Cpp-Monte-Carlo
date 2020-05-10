@@ -1,10 +1,13 @@
+// Built-in header files
 #include <map>
 
 #ifndef FDM_HPP
 #define FDM_HPP
 
-// Finite difference methods used to calculate greeks
-// Only needs a map with stock price as key and option price as a value
+/*	ABOUT
+	- Finite difference methods used to calculate greeks
+	- Only needs a map with stock price as key and option price as a valuee*/
+
 class FDM
 {
 private: 

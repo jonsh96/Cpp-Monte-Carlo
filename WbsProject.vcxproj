@@ -139,6 +139,7 @@
     <ClCompile Include="Test_measurements.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
     <ClCompile Include="Test_plot.cpp" />
+    <ClCompile Include="test_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataProcessing.hpp" />

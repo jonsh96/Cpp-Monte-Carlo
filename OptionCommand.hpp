@@ -4,24 +4,19 @@
 // Black and Scholes exact prices and their greeks.
 //
 // (C) Datasim Education BV 2017
-//
-// Edited by Jón Sveinbjörn Halldórsson 2019
-// - Edits include fixing some formulas for the Black Scholes formulas
-//	 https://www.macroption.com/black-scholes-formula/
-// - Adding the implementation for Asian call and put options
-//   - Using analytical formulas from https://en.wikipedia.org/wiki/asian_option
-//     to compare the accuracy of the Monte Carlo prices to an Asian option with
-//	   geometric averaging instead of arithmatic averaging
-//	- TODO: Add closed form solutions to barrier options 
-//	 - Formulas from https://people.maths.ox.ac.uk/howison/barriers.pdf
 
+/* Edited
+	- Edits include fixing some formulas for the Black Scholes formulas
+	  https://www.macroption.com/black-scholes-formula/
+	- Adding the implementation for Asian call and put options
+	- Using analytical formulas from https://en.wikipedia.org/wiki/asian_option
+	  to compare the accuracy of the Monte Carlo prices to an Asian option with
+	  geometric averaging instead of arithmatic averaging
+	- TODO: Add closed form solutions to barrier options 
+	- Formulas from https://people.maths.ox.ac.uk/howison/barriers.pdf
+*/
 
-//----------------------------------------------------------------------------------------------
-//	Description and purpose of class
-//	-	Calculates fair price/delta/gamma for comparison purposes using an inheritance hierarchy
-//----------------------------------------------------------------------------------------------
-
-#define PI atan(1.0)*4		// More accurate pi
+#define PI atan(1.0)*4		// Accurate pi
 
 #ifndef OPTION_COMMAND_HPP
 #define OPTION_COMMAND_HPP
@@ -35,6 +30,9 @@
 // C++11 supports the error function
 auto cndN = [](double x) { return 0.5 * (1.0 - std::erf(-x / std::sqrt(2.0))); };
 
+/*	ABOUT
+	- Calculates fair price/delta/gamma for comparison purposes using an inheritance hierarchy
+*/
 class OptionCommand
 {
 private:
@@ -102,19 +100,18 @@ public:
 	virtual double execute(double S) override
 	{
 		double M1, M2;
-		if (b != 0.0)
+		if (b != 0)
 		{
-			M1 = (std::exp(b * T) - 1.0) / (b * T);
-			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
-			M2 += (2.0 / (b * T)) * (1.0 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
+			M1 = (std::exp(b * T) - 1) / (b * T);
+			M2 = (2 * std::exp((2 * b + sig * sig) * T) / ((b + sig * sig) * (2 * b + sig * sig) * T * T));
+			M2 += (2 / (b * T * T)) * (1 / (2 * b + sig * sig) - std::exp(b * T) / (b + sig * sig));
 		}
 		else
 		{
-			M1 = 1.0;
-			M2 = 2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T);
-			M2 /= (sig * sig * sig * sig * T * T);
-//				(2.0 * std::exp(sig * sig * T) - 2.0 * (1.0 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
+			M1 = 1;
+			M2 = (2 * std::exp(sig * sig * T) - 2 * (1 + sig * sig * T)) / (sig * sig * sig * sig * T * T);
 		}
+
 		double b_a = static_cast<double>(log(M1) / T);
 		double sig_a = std::sqrt(log(M2) / T - 2.0 * b_a);
 		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / static_cast<double>(sig_a * sqrt(T));
@@ -192,10 +189,10 @@ public:
 
 	virtual ~ArithmeticAsianPutDelta() {};
 
-	virtual double execute(double S) override
+	virtual double execute(double S) override // TODO: FIX THIS
 	{
 		double M1, M2;
-		if (b != 0.0)
+		if (b != 0)
 		{
 			M1 = (std::exp(b * T) - 1.0) / (b * T);
 			M2 = (2.0 * std::exp((2 * b + sig * sig) * T)) / ((b + sig * sig) * (2.0 * b + sig * sig) * (T * T));
@@ -211,7 +208,7 @@ public:
 		double d1 = (log(S / K) + (b_a + 0.5 * sig_a * sig_a) * T) / (sig_a * sqrt(T));
 		double d2 = d1 - sig_a * sqrt(T);
 
-		return std::exp(b_a * T) * (N(d1) - 1);
+		return -std::exp((b_a - r) * T)*N(-d1);
 	}
 };
 
@@ -293,6 +290,7 @@ public:
 		double B = 0.5 * (r - b - 0.5 * sig_g * sig_g);
 		double d1 = (log(S / K) + (B + 0.5 * sig_g * sig_g) * T) / (sig_g * sqrt(T));
 		double d2 = d1 - sig_g * sqrt(T);
+
 		return S * std::exp((B - r) * T) * N(d1) - K * std::exp(-r * T) * N(d2);
 	}
 };

@@ -38,14 +38,14 @@ double OptionData::payoff(std::vector<double> path)
 	double S = 0.0, P;
 	if (style == 0)		// European option
 		S = path.back();
-	else if(style == 1)	// Arithemtic Asian option
+	else if(style == 1)	// Arithmetic Asian option
 		S = std::accumulate(path.begin(), path.end(), 0) / static_cast<double>(path.size());
 	else if(style == 2) // Geometric Asian option
 	{
-		double geo_sum = path[0];
+		long double geo_sum = path[0];
 		for (int i = 1; i < path.size(); i++)
 		{
-			geo_sum *= path[i];
+			geo_sum = geo_sum * path[i];
 		}
 		S = pow(geo_sum, 1.0 / static_cast<double>(path.size()));
 	}
@@ -70,15 +70,15 @@ double OptionData::payoff(std::vector<double> path)
 		// ...
 	}
 
-		- The boolean should then be used in this if-loop to determine whether 
-		  or not the option has a payoff
+	- The boolean should then be used in this if-loop to determine whether 
+	  or not the option has a payoff, e.g.
+	  
+	  bool barrierHit = false;*/
 
-	bool barrierHit = false;
-	*/
 	if (type == 'C' || type == 'c')	
-		P = std::max(S - this->K, 0.0); // CALL
+		P = std::max(S - this->K, 0.0); // Call
 	else	
-		P = std::max(this->K - S, 0.0); // PUT
+		P = std::max(this->K - S, 0.0); // Put
 
 	return P;
 }
