@@ -2,7 +2,8 @@
 # Section D The Monte Carlo Method
 ## Question 1: Monte Carlo Method for One-Factor Option Pricing
 - Final project for IB9JH0 2019-2020 C++ for Quantitative Finance - Warwick Business School
-- Object oriented approach to using Monte Carlo methods (Euler's method and exact simulation) to price European, arithmetic Asian and geometric Asian call and put options. 
+- Object oriented approach to using Monte Carlo methods (Euler's method and exact simulation) to price European, arithmetic Asian and geometric Asian call and put options
+- The time and error measurements of each method (and each option type) was measured and compared using standard numerical analysis and computational complexity theory
 
 This is to certify that the work I am submitting is my own. All external references and
 sources are clearly acknowledged and identified within the contents. I am aware of the
