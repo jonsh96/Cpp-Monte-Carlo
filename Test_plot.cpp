@@ -16,7 +16,7 @@
 	- Returns an accurate price of an option
 	- Prints a summary of the results*/
 
-int main()
+/*int main()
 {
 	// Define variable
 	double Smin, Smax, dS, K, T, r, sigma, D, alpha, accuracy;
@@ -104,4 +104,4 @@ int main()
 		}
 	}
 	return 0;
-}
+}*/

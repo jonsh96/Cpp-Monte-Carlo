@@ -16,7 +16,7 @@
 	- Returns an accurate price of an option
 	- Prints a summary of the results*/
 
-/*int main()
+int main()
 {
 	// Define variable
 	double Smin, Smax, dS, K, T, r, sigma, D, alpha, accuracy;
@@ -38,7 +38,7 @@
 	//type = 'C';		// Option type, 'C' = call, 'P' = Put
 	style = 1;			// Option style, 0 = European, 1 = Arithmetic Asian, 2 = Geometric Asian
 	NT = 100;			// Number of time steps 
-	M = 10'000;			// Number of Monte Carlo simulations
+	M = 100'000;		// Number of Monte Carlo simulations
 
 	// Accuracy variables (See Section 3.3 User defined accuracy in report)
 	alpha = 0.05;		// Accuracy of confidence level 1 - alpha
@@ -94,4 +94,4 @@
 	}
 
 	return 0;
-}*/
+}
