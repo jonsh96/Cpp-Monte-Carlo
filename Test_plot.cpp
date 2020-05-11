@@ -16,7 +16,7 @@
 	- Returns an accurate price of an option
 	- Prints a summary of the results*/
 
-/*int main()
+int main()
 {
 	// Define variable
 	double Smin, Smax, dS, K, T, r, sigma, D, alpha, accuracy;
@@ -38,7 +38,7 @@
 	//type = 'P';		// Option type, 'C' = call, 'P' = Put
 	style = 0;			// Option style, 0 = European, 1 = Arithmetic Asian, 2 = Geometric Asian
 	NT = 100;			// Number of time steps 
-	M = 10'000;			// Number of Monte Carlo simulations
+	M = 1'000;			// Number of Monte Carlo simulations
 
 	// Accuracy variables (See Section 3.3 User defined accuracy in report)
 	alpha = 0.05;		// Accuracy of confidence level 1 - alpha
@@ -48,6 +48,31 @@
 	{
 		for (style = 0; style <= 2; style++)
 		{
+			// Printing option type
+			std::string option_str = "";
+			switch (style)
+			{
+			case 0:
+				option_str += "European ";
+				break;
+			case 1:
+				option_str += "Arithmetic Asian ";
+				break;
+			case 2:
+				option_str += "Geometric Asian ";
+				break;
+			}
+			switch (j)
+			{
+			case 0:
+				option_str += "call option";
+				break;
+			case 1:
+				option_str += "put option";
+				break;
+			}
+			std::cout << option_str << "\n";
+
 			// Store option data
 			OptionData OD(Smin, K, T, r, sigma, D, type[j], style);
 
@@ -75,7 +100,8 @@
 
 			// Prints the summary
 			DP.printSummary();
+			std::cout << "\n";
 		}
 	}
 	return 0;
-}*/
+}

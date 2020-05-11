@@ -18,10 +18,9 @@
 		- For both call and put
 		- For European, arithmetic Asian and geometric Asian options
 	- Saves the values to a text file
-	- Plots the time and error measurements and prints the complexity coefficients
-	*/
+	- Plots the time and error measurements and prints the complexity coefficients*/
 
-int main()
+/*int main()
 {
 	// Define variable
 	double Smin, Smax, dS, K, T, r, sigma, D, alpha, accuracy;
@@ -136,4 +135,4 @@ int main()
 	std::string command = "plot\\time_error_analysis.py";
 	system(command.c_str());
 	return 0;
-}
+}*/

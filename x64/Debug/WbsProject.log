@@ -1,31 +1,4 @@
-﻿  DataProcessing.cpp
-  FairValue.cpp
-  FDM.cpp
-  MonteCarlo.cpp
-  OptionData.cpp
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\numeric(35,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=int
-          ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\numeric(44): message : see reference to function template instantiation '_Ty std::accumulate<_InIt,_Ty,std::plus<void>>(const _InIt,const _InIt,_Ty,_Fn)' being compiled
-          with
-          [
-              _Ty=int,
-              _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
-              _Fn=std::plus<void>
-          ]
-C:\Users\Jón Sveinbjörn\source\repos\WbsProject\OptionData.cpp(42): message : see reference to function template instantiation '_Ty std::accumulate<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,int>(const _InIt,const _InIt,_Ty)' being compiled
-          with
-          [
-              _Ty=int,
-              _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>
-          ]
-  RNG.cpp
-  SDE.cpp
-  Test_accuracy.cpp
-  Test_measurements.cpp
-  Stopwatch.cpp
+﻿  Test_accuracy.cpp
   Test_plot.cpp
   Generating Code...
   WbsProject.vcxproj -> C:\Users\Jón Sveinbjörn\source\repos\WbsProject\x64\Debug\WbsProject.exe
